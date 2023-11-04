@@ -1,9 +1,3 @@
-import okeymmuo from '@public/assets/audio/christiansongs/chiomaandmercyokemmuo.mp3'
-import adaehi from '@public/assets/audio/christiansongs/AdaEhiCongratulations.mp3'
-import agbalakaazoani from '@public/assets/audio/classicsongs/AgbaluAkaNaAzoAni.mp3'
-import nwannedinamba from '@public/assets/audio/classicsongs/nwannedinnambaoliverdecoque.mp3'
-import pianoconcert from '@public/assets/audio/classicsongs/pianoconcert.mp3'
-import rocks from '@public/assets/audio/rock/rocksarthurcherymetal.mp3'
 
 export const tracks = [
   {

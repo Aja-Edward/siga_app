@@ -12,12 +12,12 @@ import HomescreenSideBar from '@components/HomescreenSideBar'
 import SigaLogo from '@public/assets/images/SIGA247logowhite.svg'
 import Loader from '@public/assets/icons/loader.svg'
 import AudioPlayer from '@components/Audiocontent/AudioPlayer'
-import audiosource from '@public/assets/audio/christiansongs/chiomaandmercyokemmuo.mp3'
+// import audiosource from '@public/assets/audio/christiansongs/chiomaandmercyokemmuo.mp3'
 import { BsTelephone } from 'react-icons/bs'
 import { GiArchiveRegister } from 'react-icons/gi'
 
 import { useSession } from 'next-auth/react'
-console.log(audiosource)
+
 const aclonica = Aclonica({
   weight: ['400'],
   subsets: ['latin'],
@@ -40,8 +40,7 @@ const Homepage = () => {
   }, [])
 
   console.log(data)
-  
-  
+
   return (
     <section className='homepage'>
       <div className='mysearchbarpositiondiv'>
@@ -123,9 +122,7 @@ const Homepage = () => {
                 className='homepage_action_searchbtn'
                 style={{ cursor: 'pointer' }}
               >
-                {/* Spinner */}
-                {' '}
-                <span>Contact </span>
+                {/* Spinner */} <span>Contact </span>
                 <BsTelephone style={{ color: '#ffffff', fontWeight: 800 }} />
               </button>
             </Link>
