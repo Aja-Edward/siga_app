@@ -1,5 +1,3 @@
-'use client'
-
 import '@styles/globals.css'
 import { Josefin_Sans, Nunito } from 'next/font/google'
 import Nav from '@components/Nav'
