@@ -4,11 +4,15 @@ import Link from 'next/link'
 import { useSession, signIn, getProviders } from 'next-auth/react'
 import { useContext, useState, useEffect } from 'react'
 import AuthContext from '@context/AuthContext'
+import Image from 'next/image'
+import Spinner from './Spinner'
+import loadingImg from '@public/assets/images/loading.gif'
 import { signOut } from 'next-auth/react'
 
-const Sidebar = () => {
+const Sidebar = ({ openSidebar, sidebarStyles }) => {
   const [providers, setProviders] = useState(null)
   const { user, setUser } = useContext(AuthContext)
+
   const { data } = useSession()
 
   useEffect(() => {
@@ -28,147 +32,173 @@ const Sidebar = () => {
   }
 
   return (
-    <aside className='md:w-1/3 lg:w-1/4 px-4'>
-      <ul className='sidebar'>
-        {user?.role === 'admin' ? (
-          <>
-            <li>
-              {' '}
-              <Link
-                href='/admin/sigaservices/new'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                New Service <span className='text-red-500'>(Admin)</span>
-              </Link>
-            </li>
+    <aside
+      className='main_sidebar_component'
+      style={sidebarStyles}
+      data-toggle={openSidebar ? 'true' : 'false'}
+    >
+      {data?.user ? (
+        <div
+          style={{
+            textAlign: 'center',
+            position: 'relative',
+            zIndex: 100,
+            color: '#ffffff',
+          }}
+        >
+          <h1>Welcome</h1>
+          <h3>{user?.name}</h3>
 
-            <li>
-              {' '}
-              <Link
-                href='/admin/sigaservices'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                All Services <span className='text-red-500'>(Admin)</span>
-              </Link>
-            </li>
-
-            <li>
-              {' '}
-              <Link
-                href='/admin/wishlists'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                All Wishes <span className='text-red-500'>(Admin)</span>
-              </Link>
-            </li>
-
-            <li>
-              {' '}
-              <Link
-                href='/admin/users'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                All Users <span className='text-red-500'>(Admin)</span>
-              </Link>
-            </li>
-
+          <div className='sidebar-container'>
             <hr />
-            <li>
-              {' '}
-              <Link
-                href='/me'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                Your Profile
-              </Link>
-            </li>
-            <li>
-              {' '}
-              <Link
-                href='/me/orders'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                Wish List
-              </Link>
-            </li>
-            <li>
-              {' '}
-              <Link
-                href='/me/update'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                Update Profile
-              </Link>
-            </li>
-            <li>
-              {' '}
-              <Link
-                href='/me/update_password'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                Update Password
-              </Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              {' '}
-              <Link
-                href='/me'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                Your Profile
-              </Link>
-            </li>
-            <li>
-              {' '}
-              <Link
-                href='/me/orders'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                Wish List
-              </Link>
-            </li>
-            <li>
-              {' '}
-              <Link
-                href='/me/update'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                Update Profile
-              </Link>
-            </li>
-            <li>
-              {' '}
-              <Link
-                href='/me/update_password'
-                className='block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md'
-              >
-                Update Password
-              </Link>
-            </li>
-          </>
-        )}
+            {user?.role === 'admin' ? (
+              <>
+                <span>
+                  <Link
+                    href='/admin/sigaservices/new'
+                    className='sidebar_service_link'
+                  >
+                    New Service
+                    <span style={{ color: 'red', fontWeight: 500 }}>
+                      (Admin)
+                    </span>
+                  </Link>
+                </span>
 
-        <li style={{ listStyle: 'none' }}>
-          {' '}
-          <button
-            style={{
-              cursor: 'pointer',
-              backgroundColor: 'gray',
-              padding: '10px 20px',
-              margin: '10px',
-              border: 'none',
-              color: '#fff',
-            }}
-            className='block px-3 py-2 text-red-800 hover:bg-red-100 hover:text-white-500 rounded-md cursor-pointer'
-            onClick={logoutHandler}
-          >
-            Logout
-          </button>
-        </li>
-      </ul>
+                <span>
+                  {' '}
+                  <Link
+                    href='/admin/sigaservices'
+                    className='sidebar_service_link'
+                  >
+                    All Services{' '}
+                    <span style={{ color: 'red', fontWeight: 500 }}>
+                      (Admin)
+                    </span>
+                  </Link>
+                </span>
+
+                <span>
+                  {' '}
+                  <Link
+                    href='/admin/wishlists'
+                    className='sidebar_service_link'
+                  >
+                    All Wishes{' '}
+                    <span style={{ color: 'red', fontWeight: 500 }}>
+                      (Admin)
+                    </span>
+                  </Link>
+                </span>
+
+                <span>
+                  {' '}
+                  <Link href='/admin/users' className='sidebar_service_link'>
+                    All Users{' '}
+                    <span style={{ color: 'red', fontWeight: 500 }}>
+                      (Admin)
+                    </span>
+                  </Link>
+                </span>
+
+                <hr />
+                <span>
+                  {' '}
+                  <Link
+                    href='/me/userprofilepage'
+                    className='sidebar_service_link'
+                  >
+                    Your Profile
+                  </Link>
+                </span>
+                <span>
+                  {' '}
+                  <Link href='/me/orders' className='sidebar_service_link'>
+                    Wish List
+                  </Link>
+                </span>
+                <span>
+                  {' '}
+                  <Link
+                    href={user && `/me/update?id=${user.id}`}
+                    className='sidebar_service_link'
+                  >
+                    Update Profile
+                  </Link>
+                </span>
+
+                <span>
+                  {' '}
+                  <Link
+                    href='/me/update_password'
+                    className='sidebar_service_link'
+                  >
+                    Update Password
+                  </Link>
+                </span>
+              </>
+            ) : (
+              <>
+                <span>
+                  {' '}
+                  <Link
+                    href='/me/userprofilepage'
+                    className='sidebar_service_link'
+                    style={{ border: '2px solid #3bc8e6' }}
+                  >
+                    Your Profile
+                  </Link>
+                </span>
+                <span>
+                  {' '}
+                  <Link href='/wishlist' className='sidebar_service_link'>
+                    Wish List
+                  </Link>
+                </span>
+                <span>
+                  {' '}
+                  <Link href={`/me/update`} className='sidebar_service_link'>
+                    Update Profile
+                  </Link>
+                </span>
+                <span>
+                  {user?.role === 'service provider' && (
+                    <Link
+                      href={user && `/about/team/update_team`}
+                      className='sidebar_service_link'
+                      style={{ color: 'greenyellow' }}
+                    >
+                      Team Update
+                    </Link>
+                  )}
+                  <Link
+                    href='/me/update_password'
+                    className='sidebar_service_link'
+                  >
+                    Update Password
+                  </Link>
+                </span>
+              </>
+            )}
+
+            <span style={{ listStyle: 'none' }}>
+              {' '}
+              <button
+                className='sidebar-list-btn'
+                style={{}}
+                onClick={logoutHandler}
+              >
+                Logout
+              </button>
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div style={{ height: '300px' }}>
+          <Spinner />
+          Waiting for you to login to show this content
+        </div>
+      )}
     </aside>
   )
 }

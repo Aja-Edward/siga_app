@@ -22,6 +22,11 @@ const userSchema = new Schema(
       minLength: [6, 'Your password must be longer than six characters'],
       select: false,
     },
+    password_reset_token: {
+      required: false,
+      type: String,
+      trim: true,
+    },
 
     avatar: {
       public_id: String,
@@ -31,6 +36,14 @@ const userSchema = new Schema(
       type: String,
       default: 'user',
     },
+    title: {
+      type: String,
+      default: 'title',
+    },
+    description: {
+      type: String,
+      default: 'description',
+    },
   },
   {
     timestamps: true,
@@ -38,9 +51,15 @@ const userSchema = new Schema(
 )
 
 userSchema.pre('save', async function (next) {
+  console.log(
+    'Saving reset password',
+    this.isModified('password'),
+    this.password
+  )
   if (!this.isModified('password')) {
     next()
   }
+
   this.password = await bcrypt.hash(this.password, 10)
 })
 const User = models.User || model('User', userSchema)

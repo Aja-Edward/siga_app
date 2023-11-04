@@ -1,14 +1,13 @@
 import '@styles/globals.css'
-import { Josefin_Sans, Nunito } from 'next/font/google'
+import { Josefin_Sans } from 'next/font/google'
+import Image from 'next/image'
 import Nav from '@components/Nav'
 import { GlobalContextProvider } from './GlobalContextProvider'
+import ContactInfo from '@components/ContactInfo'
+import sigalogo from '@public/assets/images/SIGA247logowhite.svg'
 
 const josefin_sans = Josefin_Sans({
-  weight: ['100', '200', '300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-})
-const nunito = Nunito({
-  weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000'],
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
 })
 
@@ -22,16 +21,14 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+
+  
   return (
     <html lang='en'>
-      <body
-        className={
-          josefin_sans.className ? josefin_sans.className : nunito.className
-        }
-      >
+      <body className={josefin_sans.className}>
         <link rel='icon' href='/favicon.ico' sizes='any' />
         <div className='main'>
-          <div className='gradient' />
+          {/* <div className='gradient' /> */}
         </div>
 
         <main className='app'>
@@ -41,7 +38,19 @@ export default function RootLayout({ children }) {
           </GlobalContextProvider>
         </main>
         <footer className='footer'>
-          Copyright &copy; 2023 SIGA. All rights reserved
+          <div className='footerdetails'>
+            <div className='socialcontactinfo'>
+              <ContactInfo />
+            </div>
+            <div className='companylogo'>
+              <Image width={100} height={50} src={sigalogo} alt='Siga logo' />
+            </div>
+          </div>
+          <div style={{ fontSize: '0.7rem', marginTop: '0.7rem' }}>
+            Copyright &copy; 2023 SIGA
+            <span style={{ color: 'rgb(59, 200, 230)' }}>247</span>. All rights
+            reserved
+          </div>
         </footer>
       </body>
     </html>

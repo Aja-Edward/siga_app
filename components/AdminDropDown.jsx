@@ -1,16 +1,15 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
+import { IoMdArrowDropdown } from 'react-icons/io'
 import Link from 'next/link'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 export default function AdminDropDown() {
   return (
-    <div className='admindropdown_top_container'>
+    <div className='adminuser_dropdown_top_container'>
       <Menu as='div' className='topcontainer_wrapper'>
         <div>
           <Menu.Button className='admindropdown-btn'>
-            ADMIN
-            <ChevronDownIcon className='drowpdownicon' aria-hidden='true' />
+            ADMIN <IoMdArrowDropdown style={{ fontSize: '1.5rem' }} />
           </Menu.Button>
         </div>
         <Transition

@@ -1,13 +1,14 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState} from 'react'
 import Link from 'next/link'
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const Searchbar = ({ getSearchResults }) => {
   const [query, setQuery] = useState('')
   const router = useRouter()
+   
 
   const onSearch = async (e) => {
     e.preventDefault()
@@ -30,6 +31,7 @@ const Searchbar = ({ getSearchResults }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
+
         <button
           type='submit'
           variant='outline-success'

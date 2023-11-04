@@ -4,38 +4,49 @@ import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import { parseCallbackUrl } from '@helpers/helpers'
+import { TiTimes } from 'react-icons/ti'
 
 const Login = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const [loading, setLoading] = useState(false)
-
   const params = useSearchParams()
   const callBackUrl = params.get('callbackUrl')
 
+  // const { data: session } = useSession()
+
   const submitHandler = async (e) => {
     e.preventDefault()
-    const data = await signIn('credentials', {
-      email,
-      password,
-
-      callbackUrl: callBackUrl ? parseCallbackUrl(callBackUrl) : '/',
-    })
-
-    if (data) {
-      toast.success('Login sucessfully')
-      router.push('/')
-    } else {
-      toast.error(error)
+    try {
+      const data = await signIn('credentials', {
+        email,
+        password,
+        callbackUrl: callBackUrl ? parseCallbackUrl(callBackUrl) : '/',
+        redirect: false,
+      })
+      console.log(data)
+      if (data.error) {
+        toast.error(error)
+      } else {
+        toast.success('Login successfully')
+        router.push('/')
+      }
+    } catch (error) {
+      // Handle any potential error from the signIn function
+      console.error(error)
+      toast.error('Invalid Email or Password')
     }
   }
-
   return (
     <div className='form-container'>
+      <div className='times-container'>
+        <Link href={'/'} className='times-container-link'>
+          <TiTimes />
+        </Link>
+      </div>
       <div className='form-image'>
         <Image
           src='/assets/images/register_img.png'
@@ -47,7 +58,6 @@ const Login = () => {
       </div>
       <form onSubmit={submitHandler}>
         <h1>SignIn</h1>
-
         <input
           type='email'
           name='email'
@@ -63,10 +73,10 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
         <button type='submit' value='login'>
           Sign In
-        </button>
+        </button>{' '}
+        <br />
         <span>
           <span>Don't Have An Account? </span>
           <Link href='/register' className='myformlink'>

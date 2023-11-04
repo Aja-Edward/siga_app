@@ -1,30 +1,36 @@
 import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
-import { signOut } from 'next-auth/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { signOut, useSession } from 'next-auth/react'
+import { Fragment } from 'react'
 import Image from 'next/image'
 
-export default function UserDropDown({ user }) {
+export default function UserDropDown() {
+  // const { user } = useContext(AuthContext)
+  const { data: session } = useSession()
+  console.log(session?.user)
   const logoutHandler = () => {
     signOut()
   }
   return (
-    <div className='userdropdown_top_container'>
+    <div className='userdropdown_top_container' style={{ zIndex: 10 }}>
       <Menu as='div' className='topcontainer_user_wrapper'>
         <div className='userimage_name_wrapper'>
           <Menu.Button className='admindropdown-btn'>
             <Image
               style={{ borderRadius: '50%' }}
               src={
-                user.avarta
-                  ? user.avarta.url
+                session?.user
+                  ? session?.user?.avatar?.url
                   : '/assets/images/defaultimage.png'
               }
               height={30}
               width={30}
               alt='user image'
             />
-            {user && user.name}
+            <div className='session-user-name'>
+              {session?.user && session?.user?.name}
+            </div>
+            {/* {session?.user && session?.user?.name.substring(0, 9)} */}
           </Menu.Button>
         </div>
         <Transition
@@ -43,8 +49,8 @@ export default function UserDropDown({ user }) {
                   <Image
                     style={{ borderRadius: '50%' }}
                     src={
-                      user.avarta
-                        ? user.avarta.url
+                      session?.user
+                        ? session?.user?.avatar?.url
                         : '/assets/images/defaultimage.png'
                     }
                     height={30}
@@ -54,7 +60,7 @@ export default function UserDropDown({ user }) {
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Link href={'/me'}>
+                <Link href={'/me/userprofilepage'}>
                   <button className='dropdown-element-btn'>Profile</button>
                 </Link>
               </Menu.Item>

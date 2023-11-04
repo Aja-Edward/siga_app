@@ -1,6 +1,5 @@
 import React from 'react'
 import ServiceItems from '@components/servicesfolder/ServiceItems'
-import Nav from '@components/Nav'
 
 const Listservices = ({ data }) => {
   return (

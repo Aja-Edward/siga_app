@@ -1,6 +1,7 @@
 'use client'
 
 import { CartProvider } from '@context/CartContext'
+import { userCartProvider } from '@context/userCartContext'
 import { AuthProvider } from '@context/AuthContext'
 import { SessionProvider } from 'next-auth/react'
 import { ToastContainer, toast } from 'react-toastify'
@@ -12,7 +13,9 @@ export function GlobalContextProvider({ children, session }) {
       <ToastContainer position='top-right' />
       <SessionProvider session={session}>
         <AuthProvider>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            <userCartProvider>{children}</userCartProvider>
+          </CartProvider>
         </AuthProvider>
       </SessionProvider>
     </>

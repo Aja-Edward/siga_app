@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import AuthContext from '@context/AuthContext'
 import { toast } from 'react-toastify'
+import { TiTimes } from 'react-icons/ti'
 
 const Register = () => {
   const { error, clearError, registerUser, success, clearSuccess } =
@@ -37,6 +38,11 @@ const Register = () => {
 
   return (
     <div className='form-container'>
+      <div className='times-container'>
+        <Link href={'/'} className='times-container-link'>
+          <TiTimes />
+        </Link>
+      </div>
       <div className='form-image'>
         <Image
           src='/assets/images/register_img.png'
@@ -81,7 +87,8 @@ const Register = () => {
         <input type='password' placeholder='Confirm Password' />
         <button type='submit' className='form-container-button'>
           create user
-        </button>
+        </button>{' '}
+        <br />
         <span>
           Already Have An Account?
           <Link href='/login' className='myformlink'>

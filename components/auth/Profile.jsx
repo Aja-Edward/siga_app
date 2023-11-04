@@ -5,46 +5,90 @@ import Image from 'next/image'
 import { useContext } from 'react'
 import AuthContext from '@context/AuthContext'
 import UserAddresses from '@components/user/UserAddresses'
+import { useSession } from 'next-auth/react'
+import { redirect, usePathname, useRouter } from 'next/navigation'
 
-const Profile = ({ addresses, session }) => {
-  console.log(addresses)
-  const { user } = useContext(AuthContext)
+const Profile = ({ addressData }) => {
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/login?callbackUrl=/me')
+    },
+  })
+
+  const { user, setUser, submitting, setSubmitting } = useContext(AuthContext)
 
   console.log(user)
+  if (status === 'loading') {
+    return <div>Loading...</div>
+  }
+  const pathName = usePathname()
+  const router = useRouter()
+  if (!session || status === 'unauthenticated') {
+    redirect('/login')
+  }
 
-  if (!session?.user) {
-    return <div>Loading user information...</div>
+  const handleUserUpdate = () => {
+    router.push(`/me/update?id=${user._id}`)
   }
 
   return (
     <>
-      <figure className='flex items-start sm:items-center'>
-        <div className='relative'>
+      <figure className='adminprofilepage-container'>
+        <div className='image-container'>
           <Image
-            style={{ borderRadius: '50%' }}
-            className='w-16 h-16 rounded-full mr-4'
+            className='admin-avatar'
             src={
-              user?.avarta ? user.avarta.url : '/assets/images/defaultimage.png'
+              user?.avatar
+                ? user.avatar.url
+                : '/assets/images/defaultavatar.jpg'
             }
             alt={user?.name}
-            width={100}
-            height={100}
+            width={300}
+            height={300}
           />
         </div>
         <figcaption>
-          <h5 className='font-semibold text-lg'>{user?.name}</h5>
-          <p>
-            <b>Email:</b> {user?.email} | <b>Joined On: </b>
+          <h5 className='admin-name'>{user?.name}</h5>
+          <p className='admin-email'>
+            <b>Email:</b> {user?.email} | <br />
+            <b>Joined On: </b>
             {user?.createdAt}
           </p>
+          {session?.user.id ||
+            (pathName === '/me' && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: 'inter',
+                    padding: '20px 30px',
+                    fontSize: 'small',
+                    cursor: 'pointer',
+                    color: 'green',
+                  }}
+                  onClick={handleUserUpdate}
+                >
+                  Edit
+                </p>
+              </div>
+            ))}
         </figcaption>
+        <hr className='my-4' />
+        {addressData.map((useraddress) => (
+          <div className='address-adminPage-container'>
+            <UserAddresses useraddress={useraddress} user={user} />
+          </div>
+        ))}
       </figure>
-      <hr className='my-4' />
-      <UserAddresses addresses={addresses} />
-      <Link href={'/address/new'}>
-        <button className='px-4 py-2 inline-block text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100'>
-          <i className='mr-1 fa fa-plus'></i> Add new address
-        </button>
+
+      <Link href={'/address/new'} className='admin-address-btn-wrapper'>
+        <button className='admin-address-btn'>Add new address</button>
       </Link>
       <hr className='my-4' />
     </>

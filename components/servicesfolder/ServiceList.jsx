@@ -2,11 +2,18 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+
 import { TrashIcons, EditIcons } from '@components/Icons'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-const ServiceList = ({ allSigaServices, deleteData }) => {
+const ServiceList = ({
+  handleDelete,
+  allSigaServices,
+  handleServiceUpdate,
+}) => {
+  const router = useRouter()
+
   return (
     <section className='servicelist_container'>
       <div className='servicelist_heading'>
@@ -22,33 +29,49 @@ const ServiceList = ({ allSigaServices, deleteData }) => {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
               <th>NAME</th>
               <th>SLUG</th>
-              <th>CATEGORY</th>
-              <th>AVAILABILITY</th>
+              <th>CATEG</th>
+              <th>AVAIL</th>
               <th></th>
             </tr>
           </thead>
 
           <tbody>
-            {allSigaServices.map((allSigaservice) => (
-              <tr key={allSigaservice._id}>
-                <td>{allSigaservice._id}</td>
-                <td>{allSigaservice.name}</td>
-                <td>{allSigaservice.slug}</td>
-                <td>{allSigaservice.category}</td>
-                <td>{allSigaservice.availability}</td>
-                <td className='edit-icon-container'>
-                  <Link href={`/admin/services/edit`}>
-                    <EditIcons className='editicons' />
-                  </Link>
-                </td>
-                <td className='delete-icon-container'>
-                  <TrashIcons className='trashicon' />
-                </td>
+            {allSigaServices?.length > 0 ? (
+              allSigaServices.map((allSigaservice) => {
+                const serviceSlugToDelete = allSigaservice.slug
+                return (
+                  <tr key={allSigaservice._id}>
+                    <td>{allSigaservice.name}</td>
+                    <td>{allSigaservice.slug}</td>
+                    <td>{allSigaservice.category}</td>
+                    <td>{allSigaservice.availability}</td>
+                    <td className='edit-icon-container'>
+                      <EditIcons
+                        className='editicons'
+                        handleServiceUpdate={() =>
+                          handleServiceUpdate &&
+                          handleServiceUpdate(allSigaservice.slug)
+                        }
+                      />
+                    </td>
+                    <td className='delete-icon-container'>
+                      <TrashIcons
+                        className='trashicon'
+                        handleDelete={() =>
+                          handleDelete && handleDelete(serviceSlugToDelete)
+                        }
+                      />
+                    </td>
+                  </tr>
+                )
+              })
+            ) : (
+              <tr>
+                <td colSpan='6'>No services available.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

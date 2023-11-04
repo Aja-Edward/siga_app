@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+
 import { useContext, useState, useRef, useEffect } from 'react'
 import CartContext from '@context/CartContext'
 import StarRatings from 'react-star-ratings'
 import BreadCrums from '@components/BreadCrums'
+import ReviewServiceForm from '@components/user/ReviewServiceForm'
 
 const ServiceDetail = ({ service }) => {
   const { addItemToCart } = useContext(CartContext)
@@ -25,7 +26,7 @@ const ServiceDetail = ({ service }) => {
     addItemToCart({
       service: service._id,
       name: service.name,
-      image: service.image,
+      image: service.images[0]?.url,
       quantity: service.quantity,
       category: service.category,
       availability: service.availability,
@@ -39,7 +40,7 @@ const ServiceDetail = ({ service }) => {
     },
     {
       name: `${service?.name?.substring(0, 100)}...`,
-      url: `/sigaservice/${service.slug}`,
+      url: `/sigaservice/${service?.slug}`,
     },
   ]
 
@@ -84,9 +85,9 @@ const ServiceDetail = ({ service }) => {
             <ul>
               <li>
                 <h1>
-                  {service.name}{' '}
+                  {service?.name}{' '}
                   <span>
-                    {service.availability === 'yes' ? (
+                    {service?.availability === 'yes' ? (
                       <h2 style={{ color: 'green' }}>(Available!)</h2>
                     ) : (
                       <span style={{ color: 'GrayText' }}>
@@ -97,28 +98,63 @@ const ServiceDetail = ({ service }) => {
                 </h1>
                 <li className='rating'>
                   <StarRatings
-                    rating={service.rating}
+                    rating={service?.rating}
                     starRatedColor='#ffb829'
-                    numberofStars={service.numreviews}
+                    numberofStars={service?.numreviews}
                     starDimension={'20px'}
                     starSpacing='2px'
                     name='rating'
                   />
-                  {service.rating}
+                  {service?.rating}
                 </li>
               </li>
-              <li>Catetory: {service.category}</li>
-              <li className='description-text'>{service.description}</li>
+              <li>Catetory: {service?.category}</li>
+              <li className='description-text'>{service?.description}</li>
             </ul>
             <div className='calltoaction_btn_container'>
-              <button className='wishlist_btn' onClick={wishListHandler}>
+              <button
+                className='wishlist_btn'
+                onClick={wishListHandler}
+                style={{ cursor: 'pointer' }}
+              >
                 {isWishListed ? 'Wished' : 'Add to Wish'}{' '}
               </button>
-              <Link href={'/contact'}>
+              <Link href={'/me/message'}>
                 <button className='action_btn'>Contact Us</button>
               </Link>
             </div>
           </div>
+        </div>
+        <div
+          style={{
+            width: '50%',
+            marginLeft: '15px',
+          }}
+        >
+          {service?.reviews.map((review, index) => (
+            <div style={{ color: 'white' }} className='reviews' key={index}>
+              <p style={{ marginBottom: '10px', lineHeight: '1rem' }}>
+                {' '}
+                {review?.name}
+              </p>
+              <p>
+                {' '}
+                <StarRatings
+                  rating={service?.rating}
+                  starRatedColor='#ffb829'
+                  numberofStars={service?.numreviews}
+                  starDimension={'20px'}
+                  starSpacing='2px'
+                  name='rating'
+                />
+                {review?.rating}
+              </p>
+              <p style={{ marginBottom: '10px', lineHeight: '1rem' }}>
+                {' '}
+                {review?.comment}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
     </>

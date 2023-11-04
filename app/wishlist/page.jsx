@@ -8,10 +8,15 @@ const WishListPage = () => {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect('/login?callbackUrl=/wishlist')
+      if (session?.user?.role === 'admin' || 'manager') {
+        redirect('/login?callbackUrl=/wishlist')
+      }
+      if (session?.user?.role === 'user') {
+        redirect('/login?callbackUrl=/wishlist/user-wishlist')
+      }
     },
   })
-
+  console.log(session?.user)
   if (status === 'loading') {
     return <div>Loading...</div>
   }
