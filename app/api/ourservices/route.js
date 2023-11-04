@@ -1,6 +1,6 @@
 import { connectToDB } from '@utils/database'
 import Service from '@models/serviceModel'
-import onError from '@backend/middlewares/errors'
+// import onError from '@backend/middlewares/errors'
 import { createRouter } from 'next-connect'
 
 export const router = createRouter()
@@ -17,4 +17,4 @@ export const GET = async (request, cxt) => {
     return new Response('Failed to fetch your service', { status: 500 })
   }
 }
-router.handler({ onError })
+// router.handler({ onError })

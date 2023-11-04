@@ -16,7 +16,7 @@ const CreateServicePage = () => {
     },
   })
 
-  if (status === 'loading') {
+  if (status === 'isLoading') {
     return (
       <div>
         <Image
@@ -48,7 +48,7 @@ const CreateServicePage = () => {
           ) : (
             <CreateServiceForm
               type='Create'
-              loading={isLoading}
+              isLoading={isLoading}
               setIsLoading={setIsLoading}
             />
           )}

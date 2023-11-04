@@ -1,19 +1,31 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { Aclonica } from 'next/font/google'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import Searchbar from '@components/Searchbar'
+import { FaLongArrowAltDown } from 'react-icons/fa'
 import Listservices from '@components/servicesfolder/Listservices'
+import HomescreenSideBar from '@components/HomescreenSideBar'
+import SigaLogo from '@public/assets/images/SIGA247logowhite.svg'
+import Loader from '@public/assets/icons/loader.svg'
+import AudioPlayer from '@components/Audiocontent/AudioPlayer'
+import audiosource from '@public/assets/audio/christiansongs/chiomaandmercyokemmuo.mp3'
+import { BsTelephone } from 'react-icons/bs'
+import { GiArchiveRegister } from 'react-icons/gi'
 
-// const getServices = async () => {
-//   const { data } = await axios.get(
-//     `${process.env.SERVICE_DATA_URI}/api/ourservices`
-//   )
-//   return data
-// }
+import { useSession } from 'next-auth/react'
+console.log(audiosource)
+const aclonica = Aclonica({
+  weight: ['400'],
+  subsets: ['latin'],
+})
 
 const Homepage = () => {
+  const serviceListRef = useRef(null)
+  const { data: session } = useSession()
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -28,12 +40,18 @@ const Homepage = () => {
   }, [])
 
   console.log(data)
+  
+  
   return (
     <section className='homepage'>
       <div className='mysearchbarpositiondiv'>
         <Searchbar getSearchResults={(results) => setData(results)} />
       </div>
       <div className='banner_container'>
+        <div className='homescreensidebar-container'>
+          <HomescreenSideBar />
+        </div>
+
         <div className='image-container'>
           <Image
             src='/assets/images/banner.png'
@@ -43,34 +61,99 @@ const Homepage = () => {
           />
         </div>
         <div className='text-container'>
-          <h2> Search Siga Services</h2>
-          <div>Check the Spotlight Event!</div>
-          <p>
-            Discover the Harmony of Your Dreams at our Music Event Performance &
-            Instrument Tutoring Services. Unleash your inner maestro with expert
+          <h1>
+            <Image
+              src={SigaLogo}
+              alt='Siga Logo'
+              width={100}
+              height={100}
+              style={{
+                width: '70%',
+                height: '85%',
+                marginBottom: '1rem',
+              }}
+            />
+          </h1>
+          <p
+            // className={aclonica.className}
+            style={{
+              color: '#777777',
+              fontSize: '1rem',
+              fontWeight: 400,
+              lineHeight: '1.5rem',
+            }}
+          >
+            Discover the harmony of your dreams at our music event performance &
+            instrument tutoring services. Unleash your inner maestro with expert
             guidance and captivating performances. Join us for an unforgettable
-            musical journey today !...
+            musical journey today!...
           </p>
+
           <div className='homepage_btn_wrapper'>
-            <div>
-              <Link href={'/register'}>
-                <button className='homepage_action_registerbtn'>
-                  Register
+            {!session?.user ? (
+              <Link href={`/register`}>
+                <button
+                  className='homepage_action_registerbtn'
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span>Register</span> <GiArchiveRegister />
                 </button>
               </Link>
-              <Link href={'/contact'}>
-                <button className='homepage_action_btn'> Contact</button>
+            ) : (
+              <Link href={``}>
+                <button
+                  style={{ cursor: 'pointer' }}
+                  className='homepage_action_registerbtn'
+                  onClick={() => {
+                    if (serviceListRef.current) {
+                      serviceListRef.current.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                      })
+                    }
+                  }}
+                >
+                  <span>Service</span> <FaLongArrowAltDown />
+                </button>
               </Link>
-            </div>
+            )}
+
+            <Link href={'/me/message'}>
+              <button
+                className='homepage_action_searchbtn'
+                style={{ cursor: 'pointer' }}
+              >
+                {/* Spinner */}
+                {' '}
+                <span>Contact </span>
+                <BsTelephone style={{ color: '#ffffff', fontWeight: 800 }} />
+              </button>
+            </Link>
           </div>
         </div>
       </div>
-      <div className='boundary'>
-        <p>List of Siga Services</p>
+      <div className='audio-container'>
+        <AudioPlayer />
       </div>
-      <div className='sigaserviceitem_container'>
-        <Listservices key={data._id} data={data} />
-      </div>
+      <p className='boundary' style={{ textAlign: 'center' }}>
+        {isLoading ? 'loading wait...' : 'Service loaded'}
+      </p>
+      {isLoading ? (
+        <div
+          style={{ margin: '0 auto', display: 'flex', justifyCotent: 'center' }}
+        >
+          <Image
+            src={Loader}
+            width={100}
+            height={100}
+            alt={'siga service loader'}
+          />
+        </div>
+      ) : (
+        <div className='sigaserviceitem_container' ref={serviceListRef}>
+          <Listservices key={data._id} data={data} />
+        </div>
+      )}
     </section>
   )
 }

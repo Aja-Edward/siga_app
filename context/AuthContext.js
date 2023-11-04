@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { createContext, useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { countries } from 'countries-list'
-import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 
 const AuthContext = createContext()
@@ -13,12 +12,10 @@ const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
   const searchParams = useSearchParams()
   const userId = searchParams.get('id')
-  console.log('USER ID', userId)
   const serviceSlug = searchParams.get('slug')
 
-  // const { data: session } = useSession()
-
   const router = useRouter()
+  const { data: session, update } = useSession()
 
   const [error, setError] = useState(null)
   const [user, setUser] = useState(null)
@@ -32,6 +29,16 @@ export const AuthProvider = ({ children }) => {
     state: '',
     phoneNo: '',
     zipCode: '',
+  })
+  const [freebie, setFreebie] = useState({
+    topic: '',
+    slug: '',
+    fsubtopic: '',
+    firstdescription: '',
+    ssubtopic: '',
+    seconddescription: '',
+    tsubtopic: '',
+    thirddescription: '',
   })
   const countriesList = Object.values(countries)
 
@@ -48,23 +55,18 @@ export const AuthProvider = ({ children }) => {
         setSuccess(success?.response?.data.message)
       }
     } catch (error) {
-      setError('An error occurred during registration.') // Generic error message
-      return false // Return error status
+      setError('An error occurred during registration.')
+      return false
     }
   }
 
   const updateUserProfile = async (formData) => {
     setLoading(true)
-
-    if (!userId) return alert('User ID not Found')
-
     try {
-      console.log('formData', formData.avatar)
       const formDataObj = new FormData()
       formDataObj.append('name', formData.name)
       formDataObj.append('email', formData.email)
       formDataObj.append('phone', formData.phone)
-      // formDataObj.append('role', formData.role)
 
       formDataObj.append('image', formData.avatar)
 
@@ -73,8 +75,19 @@ export const AuthProvider = ({ children }) => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      console.log(response)
+
       if (response.status === 200) {
+        const { name, email, phone, avatar } = response.data
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            name,
+            email,
+            phone,
+            avatar,
+          },
+        })
         setLoading(false)
         alert('User updated successfully!')
         router.push('/me/userprofilepage')
@@ -87,7 +100,73 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const editService = async () => {
+  const updateTeamProfile = async (formData) => {
+    setLoading(true)
+    try {
+      const formDataObj = new FormData()
+      formDataObj.append('name', formData.name)
+      formDataObj.append('email', formData.email)
+      formDataObj.append('phone', formData.phone)
+      formDataObj.append('title', formData.title)
+      formDataObj.append('description', formData.description)
+
+      formDataObj.append('image', formData.avatar)
+
+      const response = await axios.patch(`/api/team/${userId}`, formDataObj, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+      if (response.status === 200) {
+        const { name, email, phone, avatar, title, description } = response.data
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            name,
+            email,
+            phone,
+            avatar,
+            title,
+            description,
+          },
+        })
+        setLoading(false)
+        alert('Welcome into our team!')
+        router.push('/me/userprofilepage')
+      }
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const updateUserPassword = async (currentPassword, newPassword) => {
+    const myuserId = session.user._id
+    console.log(myuserId)
+    try {
+      const response = await axios.patch(
+        `/api/users/update-password/${myuserId}`,
+        {
+          currentPassword,
+          newPassword,
+        }
+      )
+      console.log(response)
+      if (response.status === 200) {
+        alert('User password updated successfully!')
+        router.push('/')
+      }
+    } catch (error) {
+      console.log(error.message)
+      setError(error.response)
+    }
+  }
+
+  const editService = async (props) => {
     if (!serviceSlug) {
       alert('Service Id not available')
       return
@@ -97,14 +176,18 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const formData = new FormData()
-      formData.append('name', formData.name)
-      formData.append('slug', formData.slug)
-      formData.append('description', formData.description)
-      formData.append('category', formData.category)
-      formData.append('availability', formData.availability)
-      formData.append('quantity', formData.quantity)
-      formData.append('rating', formData.rating)
-      formData.append('numReviews', formData.numReviews)
+      formData.append('name', props.name)
+      formData.append('slug', props.slug)
+      formData.append('description', props.description)
+      formData.append('category', props.category)
+      formData.append('availability', props.availability)
+      formData.append('quantity', props.quantity)
+      formData.append('rating', props.rating)
+      // formData.append('numReviews', props.numReviews)
+
+      Array.from(props.images).forEach((file, i) => {
+        formData.append(`images-${i}`, file)
+      })
 
       const response = await axios.patch(
         `/api/ourservices/${serviceSlug}`,
@@ -144,7 +227,9 @@ export const AuthProvider = ({ children }) => {
       formDataObj.append('quantity', formData.quantity)
       formDataObj.append('rating', formData.rating)
       formDataObj.append('numReviews', formData.numReviews)
-      formDataObj.append('images', formData.images)
+      Array.from(formData.images).forEach((file, i) => {
+        formDataObj.append(`images-${i}`, file, file.name)
+      })
 
       console.log(formDataObj)
       const response = await axios.post('/api/ourservices/new', formDataObj)
@@ -159,32 +244,45 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  // const addNewAddress = async ({
-  //   street,
-  //   city,
-  //   state,
-  //   phoneNo,
-  //   zipCode,
-  //   country,
-  // }) => {
-  //   try {
-  //     const { data } = await axios.post('/api/address/new', {
-  //       street,
-  //       city,
-  //       state,
-  //       phoneNo,
-  //       zipCode,
-  //       country,
-  //       user,
-  //     })
-  //     if (data?.ok) {
-  //       setSuccess(success?.response?.data.message)
-  //       router.push('/me')
-  //     }
-  //   } catch (error) {
-  //     setError(error?.response?.data?.message)
-  //   }
-  // }
+  const addNewFreebie = async (e) => {
+    setSubmitting(true)
+    try {
+      const response = await fetch('/api/team/serviceprovider/new', {
+        method: 'POST',
+        body: JSON.stringify({
+          topic: freebie.topic,
+          slug: freebie.slug,
+          fsubtopic: freebie.fsubtopic,
+          firstdescription: freebie.firstdescription,
+          ssubtopic: freebie.ssubtopic,
+          seconddescription: freebie.seconddescription,
+          tsubtopic: freebie.tsubtopic,
+          thirddescription: freebie.thirddescription,
+          user: session?.user._id,
+        }),
+      })
+      console.log(response)
+      if (response.ok) {
+        setFreebie({
+          topic: '',
+          slug: '',
+          fsubtopic: '',
+          firstdescription: '',
+          ssubtopic: '',
+          seconddescription: '',
+          tsubtopic: '',
+          thirddescription: '',
+        })
+        alert('Freebie added successfully')
+        router.push('/')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
   const addNewAddress = async (e) => {
     setSubmitting(true)
 
@@ -202,7 +300,16 @@ export const AuthProvider = ({ children }) => {
         }),
       })
       if (response.ok) {
-        router.push('/me')
+        setAddress({
+          street: '',
+          city: '',
+          state: '',
+          phoneNo: '',
+          zipCode: '',
+          countries: '',
+        })
+        alert('Address addeded successfully')
+        router.push('/me/userprofilepage')
       }
     } catch (error) {
       console.log(error)
@@ -217,23 +324,28 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        user,
-        error,
         service,
+        postService,
         setService,
-        address,
         editService,
+        user,
+        setUser,
+        registerUser,
         updateUserProfile,
+        updateUserPassword,
         loading,
+        address,
+        addNewAddress,
         setAddress,
         submitting,
         setSubmitting,
-        postService,
-        setUser,
-        registerUser,
+        updateTeamProfile,
+        error,
+        addNewFreebie,
         clearError,
+        freebie,
+        setFreebie,
         success,
-        addNewAddress,
         countriesList,
       }}
     >

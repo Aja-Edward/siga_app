@@ -9,11 +9,11 @@ const getFormDataFields = (formData) => {
   const fields = {}
   let files = []
 
-  for (const field of formData) {
-    if (field[1] instanceof Blob) {
-      files.push({ name: field, file: field })
+  for (const [fieldName, fieldValue] of formData.entries()) {
+    if (fieldValue instanceof Blob) {
+      files.push({ name: fieldName, file: fieldValue })
     } else {
-      fields[field] = field[1]
+      fields[fieldName] = fieldValue
     }
   }
   return { fields, files }
@@ -28,6 +28,7 @@ const checkFileType = (blob) => {
     throw new Error('Please upload either a jpeg, jpg or a pn file online')
   }
 }
+
 const saveFileToDisk = async (blob) => {
   checkFileType(blob)
 
@@ -55,28 +56,29 @@ const saveFileToDisk = async (blob) => {
 
 export const POST = async (req, res) => {
   await connectToDB()
-  const {
-    name,
-    slug,
-    description,
-    images,
-    category,
-    availability,
-    quantity,
-    rating,
-    numReviews,
-  } = await req.json()
 
   try {
-    const form = await request.formData()
+    const form = await req.formData()
     const { fields, files } = getFormDataFields(form)
+
+    const {
+      name,
+      slug,
+      description,
+      images,
+      category,
+      availability,
+      quantity,
+      rating,
+      numReviews,
+    } = fields
 
     const filePaths = await Promise.all(
       files.map(async (fileData) => {
         return await saveFileToDisk(fileData.file)
       })
     )
-
+    console.log('File path', filePaths)
     const newServiceExists = await Service.findOne({ name })
     if (newServiceExists) {
       return NextResponse.json(
@@ -86,9 +88,24 @@ export const POST = async (req, res) => {
         }
       )
     }
+
+    const newService = new Service({
+      name,
+      slug,
+      description,
+      category,
+      images,
+      availability,
+      quantity: quantity ? Number(quantity) : 1,
+      rating: rating ? Number(rating) : 1,
+      numReviews: numReviews ? Number(numReviews) : 0,
+    })
+
     const servicesFolder = 'mysiga/services'
+
     for (const filePath of filePaths) {
       if (filePath) {
+        console.log(filePath)
         try {
           const uploadResponse = await cloudinary.uploader.upload(filePath, {
             folder: servicesFolder,
@@ -105,17 +122,6 @@ export const POST = async (req, res) => {
         }
       }
     }
-
-    const newService = new Service({
-      name: fields.name,
-      slug: fields.slug,
-      description: fields.description,
-      category: fields.category,
-      availability: fields.availability,
-      quantity: fields.quantity,
-      rating: fields.rating,
-      numReviews: fields.numReviews,
-    })
 
     await newService.save()
     console.log(newService)
@@ -134,7 +140,7 @@ export const POST = async (req, res) => {
           rating: newService.rating,
           numReviews: newService.numReviews,
         }),
-        { status: 201 }
+        { status: 200 }
       )
     } else {
       return NextResponse.json(

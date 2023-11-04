@@ -5,6 +5,8 @@ import Sidebar from '@components/Sidebar'
 import Link from 'next/link'
 import { countries } from 'countries-list'
 import AuthContext from '@context/AuthContext'
+import Image from 'next/image'
+import addressImage from '@public/assets/images/register_img.png'
 
 const AddressForm = ({ type }) => {
   const {
@@ -28,24 +30,37 @@ const AddressForm = ({ type }) => {
 
   return (
     <>
-      <section className='py-10'>
-        <div className='container max-w-screen-xl mx-auto px-4'>
-          <div className='flex flex-col md:flex-row -mx-4'>
-            <Sidebar />
-            <main className='md:w-2/3 lg:w-3/4 px-4'>
+      <section className='addressform-section'>
+        <div className='addressform-container'>
+          <div className='addressform-wrapper'>
+            {/* <Sidebar /> */}
+            <Image
+              src={addressImage}
+              alt='user address'
+              width={100}
+              height={100}
+            />
+            <main className='addressform-main-wrapper'>
               <div
                 style={{ maxWidth: '480px' }}
-                className='mt-1 mb-20 p-4 md:p-7 mx-auto rounded bg-white shadow-lg'
+                className='addressform-div-wrapper'
               >
                 <form onSubmit={submitHandler}>
-                  <h2 className='mb-5 text-2xl font-semibold'>
-                    {type} Address
-                  </h2>
+                  <h2 className='addressform-title'>{type} Address</h2>
 
-                  <div className='mb-4 md:col-span-2'>
-                    <label className='block mb-1'> Street* </label>
+                  <div className='addressform-label-container'>
+                    <label
+                      style={{
+                        display: 'block',
+                        marginBottom: '4px',
+                        marginTop: '5px',
+                      }}
+                    >
+                      Street
+                      <span style={{ color: 'red', fontSize: '1rem' }}>*</span>
+                    </label>
                     <input
-                      className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+                      className='addressform-input'
                       type='text'
                       placeholder='Type your address'
                       value={address.street}
@@ -57,9 +72,20 @@ const AddressForm = ({ type }) => {
 
                   <div className='grid md:grid-cols-2 gap-x-3'>
                     <div className='mb-4 md:col-span-1'>
-                      <label className='block mb-1'> City </label>
+                      <label
+                        style={{
+                          display: 'block',
+                          marginBottom: '4px',
+                          marginTop: '5px',
+                        }}
+                      >
+                        City
+                        <span style={{ color: 'red', fontSize: '1rem' }}>
+                          *
+                        </span>
+                      </label>
                       <input
-                        className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+                        className='addressform-input'
                         type='text'
                         placeholder='Type your city'
                         value={address.city}
@@ -71,9 +97,20 @@ const AddressForm = ({ type }) => {
                     </div>
 
                     <div className='mb-4 md:col-span-1'>
-                      <label className='block mb-1'> State </label>
+                      <label
+                        style={{
+                          display: 'block',
+                          marginBottom: '4px',
+                          marginTop: '5px',
+                        }}
+                      >
+                        State
+                        <span style={{ color: 'red', fontSize: '1rem' }}>
+                          *
+                        </span>
+                      </label>
                       <input
-                        className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+                        className='addressform-input'
                         type='text'
                         placeholder='Type state here'
                         value={address.state}
@@ -87,9 +124,20 @@ const AddressForm = ({ type }) => {
 
                   <div className='grid md:grid-cols-2 gap-x-2'>
                     <div className='mb-4 md:col-span-1'>
-                      <label className='block mb-1'> ZIP code </label>
+                      <label
+                        style={{
+                          display: 'block',
+                          marginBottom: '4px',
+                          marginTop: '5px',
+                        }}
+                      >
+                        ZIP code
+                        <span style={{ color: 'red', fontSize: '1rem' }}>
+                          *
+                        </span>
+                      </label>
                       <input
-                        className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+                        className='addressform-input'
                         type='number'
                         placeholder='Type zip code here'
                         value={address.zipCode}
@@ -101,9 +149,20 @@ const AddressForm = ({ type }) => {
                     </div>
 
                     <div className='mb-4 md:col-span-1'>
-                      <label className='block mb-1'> Phone No </label>
+                      <label
+                        style={{
+                          display: 'block',
+                          marginBottom: '4px',
+                          marginTop: '5px',
+                        }}
+                      >
+                        Phone No
+                        <span style={{ color: 'red', fontSize: '1rem' }}>
+                          *
+                        </span>
+                      </label>
                       <input
-                        className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+                        className='addressform-input'
                         type='number'
                         placeholder='Type phone no here'
                         value={address.phoneNo}
@@ -116,9 +175,20 @@ const AddressForm = ({ type }) => {
                   </div>
 
                   <div className='mb-4 md:col-span-2'>
-                    <label className='block mb-1'> Country </label>
+                    <label
+                      style={{
+                        display: 'block',
+                        marginBottom: '4px',
+                        marginTop: '5px',
+                      }}
+                    >
+                      Country
+                      <span style={{ color: 'red', fontSize: '1rem' }}>
+                        *
+                      </span>{' '}
+                    </label>
                     <select
-                      className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+                      className='addressform-input'
                       value={address.country}
                       // onChange={(e) => setCountry(e.target.value)}
                       onChange={(e) =>
@@ -136,7 +206,10 @@ const AddressForm = ({ type }) => {
                     style={{
                       display: 'flex',
                       justifyContent: 'flex-end',
+                      alignItems: 'center',
                       marginBottom: '5px',
+                      marginTop: '7px',
+                     
                     }}
                   >
                     <Link
@@ -152,7 +225,7 @@ const AddressForm = ({ type }) => {
                     </Link>
                     <button
                       type='submit'
-                      className='my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700'
+                      className='addressform-btn'
                       disabbled={submitting}
                     >
                       {submitting ? `${type}...` : type}

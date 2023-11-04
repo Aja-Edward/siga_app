@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react'
 const UserAddresses = ({ useraddress, handleDelete, handleEdit, params }) => {
   console.log(params)
   const pathName = usePathname()
- 
+
   const { data: session } = useSession()
 
   console.log('Pathname', pathName)
@@ -31,17 +31,10 @@ const UserAddresses = ({ useraddress, handleDelete, handleEdit, params }) => {
   }
 
   return (
-    <div className='mb-5 gap-4'>
-      <figure className='w-full flex align-center bg-gray-100 p-4 rounded-md cursor-pointer'>
-        <div className='mr-3'>
-          <h3>I am a: {useraddress.user.name}</h3>
-          <h3>Role: {useraddress.user.role}</h3>
-        </div>
-        <figcaption
-          style={{ backgroundColor: 'white', color: 'gray', padding: '20px' }}
-          className='text-gray-600'
-        >
-          <span className='flex items-center justify-center text-yellow-500 w-12 h-12 bg-white rounded-full shadow mt-2'>
+    <div className='address-container'>
+      <figure className='address-container-wrapper'>
+        <figcaption className='address-card'>
+          <span className='address-user'>
             <Image
               src={'/assets/icons/location.svg'}
               width={40}
@@ -50,19 +43,17 @@ const UserAddresses = ({ useraddress, handleDelete, handleEdit, params }) => {
               style={{ color: '#fff' }}
             />
           </span>
-          <div
-            style={{
-              display: 'flex',
-            }}
-          >
-            <p>
+          <div className='address-user-info'>
+            <p className='address-details '>
               {useraddress.street} <br /> {useraddress.city},{' '}
               {useraddress.state}, {useraddress.zipCode}, {useraddress.country}
               <br />
               Phone no: {useraddress.phoneNo}
+              <h3> {useraddress?.user?.name}</h3>
+              <h3>Role: {useraddress?.user?.role}</h3>
             </p>
             <div
-              className='copy_btn'
+              className=''
               onClick={() => {
                 handleCopy()
               }}
@@ -73,43 +64,18 @@ const UserAddresses = ({ useraddress, handleDelete, handleEdit, params }) => {
                 }
                 width={18}
                 height={18}
-                style={{ color: 'green' }}
+                className='copy-button copy-success-icon'
               />
             </div>
           </div>
-          {session?.user.id === useraddress?.user.id &&
+          {session?.user?.id === useraddress?.user?.id &&
             pathName === '/me/userprofilepage' && (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+              <div className='user-actions'>
                 {' '}
-                <p
-                  style={{
-                    fontFamily: 'inter',
-                    padding: '20px 30px',
-
-                    fontSize: 'small',
-                    cursor: 'pointer',
-                    color: 'green',
-                  }}
-                  onClick={handleEdit}
-                >
+                <p className='user-action' onClick={handleEdit}>
                   Edit
                 </p>
-                <p
-                  style={{
-                    fontFamily: 'inter',
-                    fontSize: 'small',
-                    color: 'orange',
-                    cursor: 'pointer',
-                    padding: '20px 30px',
-                  }}
-                  onClick={handleDelete}
-                >
+                <p className='user-action-delete' onClick={handleDelete}>
                   Delete
                 </p>
               </div>

@@ -16,7 +16,7 @@ const UserProfilePage = () => {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect('/login?callbackUrl=/me/userprofilepage')
+      redirect('/')
     },
   })
 
@@ -25,10 +25,9 @@ const UserProfilePage = () => {
       const response = await fetch(`/api/users/${session?.user._id}/address`)
       const singleUserAddress = await response.json()
       setSingleAddress(singleUserAddress)
-      console.log(singleUserAddress)
     }
 
-    if (session?.user._id) fetchAddresses()
+    fetchAddresses()
   }, [session?.user._id])
 
   useEffect(() => {
@@ -37,18 +36,19 @@ const UserProfilePage = () => {
       const singleUserInfo = await response.json()
       setSingleUser(singleUserInfo)
       console.log(singleUserInfo)
+      console.log(singleUser)
     }
     if (session?.user._id) fetchUsers()
   }, [session?.user._id])
 
-  const { user } = useContext(AuthContext)
+  // const { user } = useContext(AuthContext)
 
   const handleEdit = (singleUserAddress) => {
     router.push(`/update-address?id=${singleUserAddress._id}`)
   }
 
   const handleUserUpdate = () => {
-    router.push(`/me/update?id=${user._id}`)
+    router.push(`/me/update?id=${session?.user._id}`)
   }
 
   const handleDelete = async (singleUserAddress) => {
@@ -70,15 +70,19 @@ const UserProfilePage = () => {
     }
   }
 
-  const handleUserDelete = async (user) => {
+  const handleUserDelete = async (singleUser) => {
+    console.log(singleUser)
     const hasConfirmed = confirm('Are you sure you want to delete this user?')
     if (hasConfirmed) {
       try {
-        await fetch(`/api/users/${user._id.toString()}`, {
+        await fetch(`/api/users/${singleUser?._id.toString()}`, {
           method: 'DELETE',
         })
-        const filteredUser = user.filter((a) => u._id !== user._id)
-        setSingleAddress(filteredUser)
+        console.log(singleUser)
+        const filteredUser = singleUser?.filter(
+          (user) => user._id !== singleUser._id
+        )
+        setSingleUser(filteredUser)
       } catch (error) {
         console.log(error)
       }
@@ -86,13 +90,13 @@ const UserProfilePage = () => {
   }
 
   return (
-    <div>
+    <div style={{ position: 'inline-block' }}>
       <UserProfile
         name='My'
         singleUserInfo={singleUser}
         singleUserAddress={singleAddress}
         session={session}
-        description='Welcome this is your profile page utilize it'
+        description="Welcome aboard! We're thrilled to have you join our vibrant community. Explore our features, engage with like-minded individuals, and embark on a journey of growth and connection. Your presence enriches our platform, and we're here to support your every step. Let's make great things happen together! 🌟🚀"
         handleEdit={handleEdit}
         handleUserUpdate={handleUserUpdate}
         handleUserDelete={handleUserDelete}

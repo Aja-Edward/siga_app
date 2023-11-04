@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { IoMdArrowDropdown } from 'react-icons/io'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
@@ -14,8 +15,7 @@ export default function AdminUser({ user }) {
       <Menu as='div' className='topcontainer_wrapper'>
         <div>
           <Menu.Button className='admindropdown-btn'>
-            ADMIN USER
-            {/* <ChevronDownIcon className='drowpdownicon' aria-hidden='true' /> */}
+            USER <IoMdArrowDropdown style={{ fontSize: '1.5rem' }} />
           </Menu.Button>
         </div>
         <Transition

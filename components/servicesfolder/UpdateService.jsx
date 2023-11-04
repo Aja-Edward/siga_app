@@ -17,7 +17,7 @@ const UpdateServiceForm = ({ type }) => {
   const [availability, setAvailability] = useState('')
   const [quantity, setQuantity] = useState(0)
   const [description, setDescription] = useState('')
-  const [numReviews, setNumReviews] = useState([])
+  // const [numReviews, setNumReviews] = useState(0)
   const [rating, setRating] = useState('')
   const [images, setImages] = useState([])
   const [imagePreview, setImagePreview] = useState([
@@ -27,8 +27,6 @@ const UpdateServiceForm = ({ type }) => {
     useContext(AuthContext)
   const submitHandler = async (e) => {
     e.preventDefault()
-  
-   
 
     setIsLoading(true)
     editService({
@@ -38,7 +36,7 @@ const UpdateServiceForm = ({ type }) => {
       availability,
       quantity,
       description,
-      numReviews,
+      // numReviews,
       rating,
       images,
     })
@@ -46,6 +44,7 @@ const UpdateServiceForm = ({ type }) => {
 
   const onChange = (e) => {
     const selectedFiles = e.target.files
+    setImages(selectedFiles)
     const previewImages = []
     console.log('Selected files', selectedFiles)
 
@@ -72,7 +71,7 @@ const UpdateServiceForm = ({ type }) => {
       try {
         const response = await fetch(`/api/ourservices/${serviceslug}`)
         const service = await response.json()
-
+       
         if (service) {
           setName(service.name)
           setSlug(service.slug)
@@ -80,14 +79,14 @@ const UpdateServiceForm = ({ type }) => {
           setAvailability(service.availability)
           setQuantity(service.quantity)
           setRating(service.rating)
-          setNumReviews(service.numReviews)
+          // setNumReviews(service.numReviews)
           setDescription(service.description)
           setIsLoading(false) // Set isLoading to false after fetching
           toast.success('Service details fetched successfully')
         }
       } catch (error) {
-        console.error('Error fetching service details:', error)
         toast.error('Error fetching service details.')
+        console.error('Error fetching service details:', error)
       }
     }
     fetchServiceDetails()
@@ -143,13 +142,13 @@ const UpdateServiceForm = ({ type }) => {
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
-        <input
+        {/* <input
           type='number'
           name='numReviews'
           placeholder='numReviews'
           value={numReviews}
           onChange={(e) => setNumReviews(e.target.value)}
-        />
+        /> */}
         <select
           name='select'
           id=''

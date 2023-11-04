@@ -26,22 +26,42 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
-      console.log('userId', user)
+    jwt: async ({ token, user, trigger, session }) => {
+      if (trigger === 'update') {
+        return { ...token, ...session.user }
+      }
+
       if (user) {
         token.user = user
         token.role = user.role
       }
+      console.log('userId', user)
       // user && (token.role = user.role)
-      return token
+
+      return { ...token, ...user }
     },
     session: async ({ session, token }) => {
       if (session.user) {
-        session.user = token.user
-        session.user.role = token.role
+        // console.log('Session from backend', session)
+        // console.log('Token from backend', JSON.stringify(token, null, 2))
+        let user = session.user
+        session.user = {
+          name: token?.name || token.user?.name,
+          email: token?.email || token.user?.email,
+          phone: token?.phone || token.user?.phone,
+          role: token?.role || token.user?.role,
+          title: token?.title || token.user?.title,
+          description: token?.description || token.user?.desription,
+          avatar: token?.avatar || token.user?.avatar,
+          _id: token?._id || token?.user?._id,
+          createdAt: token?.createdAt || token?.user?.createdAt,
+          updatedAt: token?.updatedAt || token?.user?.updatedAt,
+        }
+        // session.user = token.user
+        // session.user.role = token.role
 
-        // delete password from session
         delete session?.user?.password
+        // delete password from session
       }
       return session
     },

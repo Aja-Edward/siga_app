@@ -78,12 +78,15 @@ export const PATCH = async (request, { params }) => {
         return await saveFileToDisk(fileData.file)
       })
     )
-  
+
     await connectToDB()
     // await multerMiddleware(request, response);
     const existingService = await Service.findOne({ slug: params.id })
+
     console.log('Existing Service', existingService)
+
     const servicesFolder = 'mysiga/services'
+
     for (const filePath of filePaths) {
       if (filePath) {
         console.log(filePath)
@@ -104,14 +107,22 @@ export const PATCH = async (request, { params }) => {
       }
     }
 
+    let numReviews;
+
     existingService.name = fields.name
     existingService.slug = fields.slug
     existingService.description = fields.description
     existingService.category = fields.category
     existingService.availability = fields.availability
-    existingService.quantity = fields.quantity
-    existingService.rating = fields.rating
-    existingService.numReviews = fields.numReviews
+    existingService.quantity = fields.quantity ? Number(fields.quantity) : 0
+    existingService.rating = fields.rating ? Number(fields.rating) : 0
+    numReviews = fields.numReviews ? Number(fields.numReviews) : 0
+    if (!isNaN(numReviews)) {
+      
+      existingService.numReviews = numReviews
+    } else {
+      console.error('Invalid numReviews value:', fields.numReviews)
+    }
 
     await existingService.save()
 
@@ -128,16 +139,76 @@ export const PATCH = async (request, { params }) => {
 export const DELETE = async (request, { params }) => {
   try {
     await connectToDB()
-
+    console.log('Deleting service with slug:', params.id)
     const deletedService = await Service.findOneAndRemove({ slug: params.id })
-
     if (deletedService) {
+      console.log('Service deleted successfully:', deletedService)
       return new Response('Service deleted successfully', { status: 200 })
+    } else {
+      console.log('Service not found')
+      return new Response('Service not found', { status: 404 })
     }
   } catch (error) {
-    console.error('Error deleting service:', error.message)
-    return new Response('Faied to delete service', +error.message, {
-      status: 500,
-    })
+    console.error('DELETE Error:', error.message)
+    return new Response('Failed to delete service', { status: 500 })
   }
 }
+
+// export const POST = async (req, { params }) => {
+//   const { rating, comment, name, user } = await req.json()
+//   console.log('Params ID', params)
+
+//   try {
+//     await connectToDB()
+//     const service = await Service.findById(params.id)
+
+//     if (!service) {
+//       console.log('Service not found')
+//     }
+//     console.log('Found service:', service)
+
+//     if (service) {
+//       const alreadyReviewed = service.reviews.find(
+//         (r) => r.user.toString() === user.toString()
+//       )
+//       console.log('User data:', req.user)
+//       console.log('Already reviewed:', alreadyReviewed)
+//       if (alreadyReviewed) {
+//         return new Response('Service already reviewed', { status: 400 })
+//       }
+//     }
+
+//     const review = {
+//       name,
+//       rating: Number(rating),
+//       user,
+//       comment,
+//     }
+//     console.log('New review:', review)
+
+//     service.reviews.push(review)
+
+//     service.numReviews = service?.reviews?.length
+
+//     console.log('Service after updating numReviews:', service)
+//     if (service.reviews.length > 0) {
+//       service.rating =
+//         service.reviews.reduce((acc, item) => item.rating + acc, 0) /
+//         service.reviews.length
+//     } else {
+//       service.rating = 0 // Handle case when there are no reviews
+//     }
+
+//     await service.save()
+
+//     console.log('updated service', service)
+
+//     return new Response(JSON.stringify(review), {
+//       status: 201,
+//       message: 'Sucessfully reviewed',
+//     })
+//   } catch (error) {
+//     console.log(error)
+//     return new Response('Failed to review service', { status: 500 })
+//   }
+// }

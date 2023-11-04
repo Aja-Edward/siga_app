@@ -13,6 +13,7 @@ export const GET = async (request, { params }) => {
     if (!user) {
       return new Response('Cannot find User', { status: 404 })
     }
+    console.log(user)
     return new Response(JSON.stringify(user), { status: 200 })
   } catch (error) {
     return new Response('No User available', { status: 500 })
@@ -74,33 +75,40 @@ export const PATCH = async (request, { params }) => {
   try {
     const form = await request.formData()
     const { fields, files } = getFormDataFields(form)
+    const { name, email, phone } = fields
 
     const filePath = await saveFileToDisk(files[0].file)
 
     await connectToDB()
     // await multerMiddleware(request, response);
-    const existingUser = await User.findById(params.id)
 
+    const existingUser = await User.findOne({ email })
     const avatarFolder = 'mysiga/avatar'
+
+    let avatar
     if (filePath) {
       const uploadResponse = await cloudinary.uploader.upload(filePath, {
         folder: avatarFolder,
       })
       fs.unlinkSync(filePath)
-      existingUser.avatar = {
+      avatar = {
         public_id: uploadResponse.public_id,
         url: uploadResponse.url,
       }
+      existingUser.avatar = avatar
     }
 
-    existingUser.name = fields.name
-    existingUser.email = fields.email
-    existingUser.phone = fields.phone
-    existingUser.role = fields.role
+    existingUser.name = name
+    existingUser.email = email
+    existingUser.phone = phone
 
     await existingUser.save()
 
-    const successResponse = { message: 'User updated successfully' }
+    const successResponse = {
+      message: 'User updated successfully',
+      avatar,
+      ...fields,
+    }
     return new Response(JSON.stringify(successResponse), { status: 200 })
   } catch (error) {
     console.log('error', error.message, error.response?.data)

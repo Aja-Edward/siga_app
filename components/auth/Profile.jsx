@@ -34,25 +34,25 @@ const Profile = ({ addressData }) => {
 
   return (
     <>
-      <figure className='flex items-start sm:items-center'>
-        <div className='relative'>
+      <figure className='adminprofilepage-container'>
+        <div className='image-container'>
           <Image
-            style={{ borderRadius: '50%' }}
-            className='w-16 h-16 rounded-full mr-4'
+            className='admin-avatar'
             src={
               user?.avatar
                 ? user.avatar.url
                 : '/assets/images/defaultavatar.jpg'
             }
             alt={user?.name}
-            width={100}
-            height={100}
+            width={300}
+            height={300}
           />
         </div>
         <figcaption>
-          <h5 className='font-semibold text-lg'>{user?.name}</h5>
-          <p>
-            <b>Email:</b> {user?.email} | <b>Joined On: </b>
+          <h5 className='admin-name'>{user?.name}</h5>
+          <p className='admin-email'>
+            <b>Email:</b> {user?.email} | <br />
+            <b>Joined On: </b>
             {user?.createdAt}
           </p>
           {session?.user.id ||
@@ -79,16 +79,16 @@ const Profile = ({ addressData }) => {
               </div>
             ))}
         </figcaption>
+        <hr className='my-4' />
+        {addressData.map((useraddress) => (
+          <div className='address-adminPage-container'>
+            <UserAddresses useraddress={useraddress} user={user} />
+          </div>
+        ))}
       </figure>
-      <hr className='my-4' />
-      {addressData.map((useraddress) => (
-        <UserAddresses useraddress={useraddress} user={user} />
-      ))}
 
-      <Link href={'/address/new'}>
-        <button className='px-4 py-2 inline-block text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100'>
-          <i className='mr-1 fa fa-plus'></i> Add new address
-        </button>
+      <Link href={'/address/new'} className='admin-address-btn-wrapper'>
+        <button className='admin-address-btn'>Add new address</button>
       </Link>
       <hr className='my-4' />
     </>

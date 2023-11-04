@@ -4,7 +4,7 @@ import { ChevronSingle } from '@components/Icons'
 
 const BreadCrums = ({ breadcrums }) => {
   return (
-    <section className='breadcrum-container'>
+    <section className='breadcrum-container' >
       <div className='breadcrum_wrapper'>
         <ol className='breadcrum-orderedlist'>
           {breadcrums.map((breadcrum, index) => (

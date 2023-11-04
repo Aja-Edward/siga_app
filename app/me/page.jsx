@@ -6,15 +6,13 @@ import Image from 'next/image'
 import { useState, useEffect, useContext } from 'react'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
+import UserProfile from '@components/auth/UserProfile'
 import AuthContext from '@context/AuthContext'
 
-// const getAddresses = async () => {
-//   const { data } = await axios.get(`/api/address`)
-//   return data
-// }
 
 const ProfilePage = () => {
   const [addresses, setAddresses] = useState([])
+  const [usersProfile, setUsersProfile] = useState([])
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {

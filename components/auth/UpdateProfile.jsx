@@ -6,17 +6,13 @@ import AuthContext from '@context/AuthContext'
 import { useSearchParams, useRouter, redirect } from 'next/navigation'
 import { toast } from 'react-toastify'
 
-const UpdateProfile = ({
-  type,
-  
-}) => {
+const UpdateProfile = ({ type }) => {
   const searchParams = useSearchParams()
   const userId = searchParams.get('id')
   const formRef = useRef()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [role, setRole] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [avatar, setAvatar] = useState('')
   const [avatarPreview, setAvatarPreview] = useState(
@@ -32,7 +28,6 @@ const UpdateProfile = ({
       name,
       email,
       phone,
-      role,
       avatar,
     })
   }
@@ -54,8 +49,9 @@ const UpdateProfile = ({
       setName(user.name)
       setEmail(user.email)
       setPhone(user.phone)
-      setRole(user.role)
+      setAvatar(user.avatar)
     }
+    toast.success('User details fetched')
     if (error) {
       toast.error(error)
       clearError()
@@ -65,16 +61,51 @@ const UpdateProfile = ({
   return (
     <>
       <div
-        style={{ maxWidth: '480px' }}
-        className='mt-1 mb-20 p-4 md:p-7 mx-auto rounded bg-white'
+        style={{
+          maxWidth: '480px',
+          marginTop: '0.25rem',
+          marginBottom: '5rem',
+          padding: '1rem',
+          backgroundColor: 'white',
+          borderRadius: '0.25rem',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+        className='update_user'
       >
         <form onSubmit={submitHandler}>
-          <h2 className='mb-5 text-2xl font-semibold'>{type} Profile</h2>
+          <h2
+            style={{
+              marginBottom: '1.25rem',
+              fontSize: '1.5rem',
+              fontWeight: '600',
+              color: '#282c37',
+            }}
+          >
+            {type} Profile
+          </h2>
 
-          <div className='mb-4'>
-            <label className='block mb-1'> Full Name </label>
+          <div
+            className='user_input_container'
+            style={{ marginBottom: '1rem' }}
+          >
+            <label style={{ display: 'block', marginBottom: '0.25rem' }}>
+              Full Name
+            </label>
             <input
-              className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+              style={{
+                appearance: 'none',
+                border: '1px solid #ccc',
+                backgroundColor: '#f0f0f0',
+                borderRadius: '0.25rem',
+                paddingTop: '0.5rem',
+                paddingBottom: '0.5rem',
+                paddingLeft: '0.75rem',
+                paddingRight: '0.75rem',
+                transition: 'border-color 0.2s',
+                outline: 'none',
+                width: '90%',
+              }}
               type='text'
               placeholder='Type your name'
               required
@@ -83,10 +114,27 @@ const UpdateProfile = ({
             />
           </div>
 
-          <div className='mb-4'>
-            <label className='block mb-1'> Email </label>
+          <div
+            className='user_input_container'
+            style={{ marginBottom: '1rem' }}
+          >
+            <label style={{ display: 'block', marginBottom: '0.25rem' }}>
+              Email
+            </label>
             <input
-              className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+              style={{
+                appearance: 'none',
+                border: '1px solid #ccc',
+                backgroundColor: '#f0f0f0',
+                borderRadius: '0.25rem',
+                paddingTop: '0.5rem',
+                paddingBottom: '0.5rem',
+                paddingLeft: '0.75rem',
+                paddingRight: '0.75rem',
+                transition: 'border-color 0.2s',
+                outline: 'none',
+                width: '90%',
+              }}
               type='text'
               placeholder='Type your email'
               required
@@ -94,11 +142,27 @@ const UpdateProfile = ({
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-
-          <div className='mb-4'>
-            <label className='block mb-1'> Phone No </label>
+          <div
+            className='user_input_container'
+            style={{ marginBottom: '1rem' }}
+          >
+            <label style={{ display: 'block', marginBottom: '0.25rem' }}>
+              Phone No
+            </label>
             <input
-              className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+              style={{
+                appearance: 'none',
+                border: '1px solid #ccc',
+                backgroundColor: '#f0f0f0',
+                borderRadius: '0.25rem',
+                paddingTop: '0.5rem',
+                paddingBottom: '0.5rem',
+                paddingLeft: '0.75rem',
+                paddingRight: '0.75rem',
+                transition: 'border-color 0.2s',
+                outline: 'none',
+                width: '90%',
+              }}
               type='number'
               placeholder='Type your Phone No'
               required
@@ -106,22 +170,8 @@ const UpdateProfile = ({
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-          <div className='mb-4'>
-            <label className='block mb-1'> User Role </label>
-            <select
-              name='role'
-              id='role'
-              placeholder='select'
-              required
-              type='select'
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option>Admin</option>
-              <option>Manager</option>
-            </select>
-          </div>
-          <div className='profile_image'>
+
+          <div className='profile_image' style={{ marginBottom: '1rem' }}>
             <Image
               src={avatarPreview}
               alt='image'
@@ -134,21 +184,29 @@ const UpdateProfile = ({
           <div className='file_upload'>
             <p>
               <input
+                style={{
+                  appearance: 'none',
+                  border: '1px solid #ccc',
+                  backgroundColor: '#f0f0f0',
+                  borderRadius: '0.25rem',
+                  paddingTop: '0.5rem',
+                  paddingBottom: '0.5rem',
+                  paddingLeft: '0.75rem',
+                  paddingRight: '0.75rem',
+                  transition: 'border-color 0.2s',
+                  outline: 'none',
+                  width: '90%',
+                }}
                 type='file'
                 id='formFile'
                 accept='image/*'
                 onChange={onChange}
               />
             </p>
-            {/* {avarta && !avartaPreview && ( */}
-            <p>
-              <button type='submit'>Upload Files</button>
-            </p>
-            {/* )} */}
 
-            <div className='mb-4'>
-              <div className='mb-4 flex flex-col md:flex-row'>
-                <div className='md:w-2/3 lg:w-80'>
+            <div style={{ marginBottom: '1rem' }}>
+              <div className='user_update_imageformat'>
+                <div className=''>
                   <h5 style={{ color: 'red' }}>
                     (*) Only accept image files less than 1mb in size and the
                     format include png/jpeg/jpg
@@ -156,16 +214,24 @@ const UpdateProfile = ({
                 </div>
               </div>
             </div>
-            {/* {avartaPreview && (
-              <code>
-                <pre>{JSON.stringify(avartaPreview, null, 2)}</pre>
-              </code>
-            )} */}
           </div>
 
           <button
             type='submit'
-            className='my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700'
+            style={{
+              marginTop: '0.5rem',
+              marginBottom: '0.5rem',
+              paddingLeft: '1rem',
+              paddingRight: '1rem',
+              paddingTop: '0.5rem',
+              paddingBottom: '0.5rem',
+              TextAlign: 'center',
+              display: 'inline-block',
+              color: 'white',
+              backgroundColor: '#3182ce',
+              border: '1px solid transparent',
+              borderRadius: '0.25rem',
+            }}
             disabled={loading ? true : false}
           >
             {loading ? 'Updading...' : 'Update'}

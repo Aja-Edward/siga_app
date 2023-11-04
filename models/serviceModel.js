@@ -1,5 +1,21 @@
 import { Schema, model, models } from 'mongoose'
 
+const reviewSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    rating: { type: Number, required: true },
+    comment: { type: String, required: true },
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
 const serviceSchema = new Schema(
   {
     name: {
@@ -36,26 +52,15 @@ const serviceSchema = new Schema(
       type: Number,
       default: 1,
     },
+    reviews: [reviewSchema],
     rating: {
       type: Number,
       default: 0,
     },
-    numReviews: [
-      {
-        rating: {
-          type: Number,
-          
-        },
-        comment: {
-          type: String,
-          
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
+    numReviews: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

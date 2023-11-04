@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import AuthContext from '@context/AuthContext'
 import Image from 'next/image'
 
@@ -12,9 +12,11 @@ const UserInfo = ({
   handleUserUpdate,
   handleUserDelete,
 }) => {
-  console.log(singleUserInfo)
-  // const { user } = useContext(AuthContext)
-  const { updateUser } = useContext(AuthContext)
+  const [expanded, setExpanded] = useState(false)
+
+  const { user } = useContext(AuthContext)
+
+  // const { updateUser } = useContext(AuthContext)
   const pathName = usePathname()
   const { data: session, status } = useSession({
     required: true,
@@ -22,70 +24,64 @@ const UserInfo = ({
       redirect('/login?callbackUrl=/me/userprofilepage')
     },
   })
+
   return (
-    <section>
-      <figure className='flex items-start sm:items-center'>
-        <div className='relative'>
+    <section className='user-info-container'>
+      <figure className='section_figure'>
+        <div className='user-avatar'>
           <Image
-            style={{ borderRadius: '50%' }}
-            className='w-16 h-16 rounded-full mr-4'
+            className='user-avatar-img'
             src={
-              singleUserInfo?.avatar
-                ? singleUserInfo.avatar.url
-                : '/assets/images/defaultimage.png'
+              user?.avatar ? user.avatar.url : '/assets/images/defaultimage.png'
             }
-            alt={singleUserInfo?.name}
-            width={100}
-            height={100}
+            alt={user?.name}
+            width={260}
+            height={260}
           />
         </div>
-        <figcaption>
-          <h5 className='font-semibold text-lg'>{singleUserInfo?.name}</h5>
-          <p>
-            <b>Email:</b> {singleUserInfo?.email} | <b>Joined On: </b>
-            {singleUserInfo?.createdAt}
+        <figcaption className='user-details'>
+          <h5 className='user-name' style={{ marginBottom: '0.5rem' }}>
+            {user?.name}
+          </h5>
+          <p className='user-email' style={{ marginBottom: '0.7rem' }}>
+            <b style={{ marginBottom: '0.5rem' }}>Email:</b> {user?.email} |
+            <br />
+            <b>Joined On: </b>
+            {user?.createdAt.substring(0, 16)}
           </p>
-          <h1>You are the {singleUserInfo?.role}</h1>
-        </figcaption>
-        <p>{description}</p>
-      </figure>
-      {session?.user.id ||
-        (pathName === '/me/userprofilepage' && (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {' '}
-            <p
-              style={{
-                fontFamily: 'inter',
-                padding: '20px 30px',
+          <h3 className='usertitle'>{user?.title}</h3>
+          <p className='user-description'>
+            {expanded
+              ? user?.description
+              : user?.description?.substring(0, 600)}
 
-                fontSize: 'small',
-                cursor: 'pointer',
-                color: 'green',
-              }}
-              onClick={handleUserUpdate}
-            >
-              Edit
-            </p>
-            <p
-              style={{
-                fontFamily: 'inter',
-                fontSize: 'small',
-                color: 'orange',
-                cursor: 'pointer',
-                padding: '20px 30px',
-              }}
-              onClick={handleUserDelete}
-            >
-              Delete
-            </p>
-          </div>
-        ))}
+            {user?.description && user?.description.length > 600 && (
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => setExpanded(!expanded)}
+              >
+                {expanded ? 'Show less' : 'Show more'}
+              </span>
+            )}
+          </p>
+
+          <h1 className='user-role'>Role: {user?.role}</h1>
+
+          <p className='user-description'>{description}</p>
+          {session?.user.id ||
+            (pathName === '/me/userprofilepage' && (
+              <div className='user-actions'>
+                {' '}
+                <p className='user-action' onClick={handleUserUpdate}>
+                  Edit
+                </p>
+                <p className='user-action-delete' onClick={handleUserDelete}>
+                  Delete
+                </p>
+              </div>
+            ))}
+        </figcaption>
+      </figure>
     </section>
   )
 }

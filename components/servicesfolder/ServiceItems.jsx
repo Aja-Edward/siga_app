@@ -5,22 +5,22 @@ import Image from 'next/image'
 import CartContext from '@context/CartContext'
 import StarRatings from 'react-star-ratings'
 
-// import StarRatings from 'react-star-ratings'
+
 
 const ServiceItems = ({ service }) => {
   const { addItemToCart } = useContext(CartContext)
-
+  console.log(service.images)
   const wishListHandler = () => {
     addItemToCart({
       service: service._id,
       name: service.name,
-      image: service.image,
+      image: service?.images[0]?.url,
       quantity: service.quantity,
       category: service.category,
       availability: service.availability,
     })
   }
-
+ 
   return (
     <div className='card'>
       <Link href={`/sigaservice/${service.slug}`}>
@@ -40,11 +40,12 @@ const ServiceItems = ({ service }) => {
         <Link href={`/sigaservice/${service.slug}`}>
           <h2 className='service_title'>{service.name}</h2>
         </Link>
+
         <div>
           <StarRatings
             rating={service.rating}
             starRatedColor='#ffb829'
-            numberofStars={service.numreviews}
+            numberOfStars={service.numreviews}
             starDimension={'12px'}
             starSpacing='2px'
             name='rating'
@@ -52,7 +53,7 @@ const ServiceItems = ({ service }) => {
 
           <span>
             {' '}
-            <b>*</b> {service.rating}
+            <b>*</b> {service.rating.toFixed(1)}
           </span>
         </div>
         {/* <p className='service_description'>{service.description}</p> */}

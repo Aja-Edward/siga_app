@@ -1,33 +1,36 @@
 import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
-import { signOut } from 'next-auth/react'
-import { Fragment, useEffect, useRef, useState, useContext } from 'react'
+import { signOut, useSession } from 'next-auth/react'
+import { Fragment } from 'react'
 import Image from 'next/image'
-import AuthContext from '@context/AuthContext'
 
 export default function UserDropDown() {
-  const { user } = useContext(AuthContext)
-  console.log(user)
+  // const { user } = useContext(AuthContext)
+  const { data: session } = useSession()
+  console.log(session?.user)
   const logoutHandler = () => {
     signOut()
   }
   return (
-    <div className='userdropdown_top_container'>
+    <div className='userdropdown_top_container' style={{ zIndex: 10 }}>
       <Menu as='div' className='topcontainer_user_wrapper'>
         <div className='userimage_name_wrapper'>
           <Menu.Button className='admindropdown-btn'>
             <Image
               style={{ borderRadius: '50%' }}
               src={
-                user.avatar
-                  ? user.avatar.url
+                session?.user
+                  ? session?.user?.avatar?.url
                   : '/assets/images/defaultimage.png'
               }
               height={30}
               width={30}
               alt='user image'
             />
-            {user && user.name}
+            <div className='session-user-name'>
+              {session?.user && session?.user?.name}
+            </div>
+            {/* {session?.user && session?.user?.name.substring(0, 9)} */}
           </Menu.Button>
         </div>
         <Transition
@@ -46,8 +49,8 @@ export default function UserDropDown() {
                   <Image
                     style={{ borderRadius: '50%' }}
                     src={
-                      user.avatar
-                        ? user.avatar.url
+                      session?.user
+                        ? session?.user?.avatar?.url
                         : '/assets/images/defaultimage.png'
                     }
                     height={30}

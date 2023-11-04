@@ -1,18 +1,20 @@
 import { useState, useEffect, useContext, useRef } from 'react'
 import AuthContext from '@context/AuthContext'
 import { redirect, useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
-const CreateServiceForm = ({ type, isLoading, setIsLoading }) => {
+const CreateServiceForm = ({ type }) => {
   const [name, setName] = useState('')
   const [slug, setSlug] = useState('')
   const [category, setCategory] = useState('')
   const [availability, setAvailability] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [quantity, setQuantity] = useState(0)
   const [description, setDescription] = useState('')
-  const [numReviews, setNumReviews] = useState([])
+  const [numReviews, setNumReviews] = useState(0)
   const [rating, setRating] = useState()
   const [images, setImages] = useState([])
   const [imagePreview, setImagePreview] = useState([
@@ -20,29 +22,48 @@ const CreateServiceForm = ({ type, isLoading, setIsLoading }) => {
   ])
   const router = useRouter()
 
-  const { postService, setLoading, loading, error } = useContext(AuthContext)
+  const { postService, error, success } = useContext(AuthContext)
   const formRef = useRef()
 
   const createService = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     console.log(createService)
-    postService({
-      name,
-      category,
-      slug,
-      availability,
-      quantity,
-      description,
-      numReviews,
-      rating,
-      images,
-    })
-    setIsLoading(false)
+    try {
+      postService({
+        name,
+        category,
+        slug,
+        availability,
+        quantity,
+        description,
+        numReviews,
+        rating,
+        images,
+      })
+      formRef.current.reset()
+      setName('')
+      setCategory('')
+      setSlug('')
+      setAvailability('')
+      setQuantity(0)
+      setDescription('')
+      setNumReviews(0)
+      setRating('')
+      setImages([])
+      setImagePreview(['/assets/images/defaultimage.png'])
+      setIsLoading(false)
+      toast.success(message)
+      router.push('/')
+    } catch (error) {
+      console.error(error)
+      setIsLoading(false)
+    }
   }
 
   const onChange = (e) => {
     const selectedFiles = e.target.files
+    setImages(selectedFiles)
     const previewImages = []
 
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -175,7 +196,7 @@ const CreateServiceForm = ({ type, isLoading, setIsLoading }) => {
             <button
               type='submit'
               className='my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700'
-              disabled={isLoading ? true : false}
+              disabled={isLoading}
             >
               {isLoading ? 'Creating...' : 'Create'}
             </button>
