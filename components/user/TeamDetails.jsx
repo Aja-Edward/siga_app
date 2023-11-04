@@ -64,7 +64,7 @@ const TeamDetail = ({ team, loading }) => {
                 <h1>{team.name} </h1>
               </li>
               <li> {team.title}</li>
-              *************************************
+              ***************************************
               <li className='description-text'>
                 {expanded
                   ? team.description
