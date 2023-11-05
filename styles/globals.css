@@ -2671,20 +2671,23 @@ option {
   justify-content: space-between;
   align-items: center;
   color: #ffffff;
+  font-weight: 300;
 }
 
 .contactinfo .box .text p {
   font-size: 0.8rem;
+  font-weight: 300;
 }
 
 .contactinfo .box .text h3 {
   font-size: 1rem;
   margin-right: 1rem;
+  font-weight: 300;
 }
 
 .box .icon {
-  background-color: rgb(var(--backround-rgb));
-  box-shadow: 1px 1px 4px 1px rgb(var(--foreground-rgb));
+  background-color: transparent;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2692,7 +2695,7 @@ option {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  font-size: 0.8rem;
+  font-size: 0.99rem;
   margin-right: 1rem;
 }
 .box .icon:hover {

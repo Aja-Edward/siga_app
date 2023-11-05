@@ -14,8 +14,7 @@ const ContactInfo = () => {
           <div className='text'>
             <h3>Office:</h3>
             <p>
-              65B Chief Idowu Rufai Avenue, Ago Palace way,
-              <span>Lagos</span>
+              65B Chief Idowu Rufai Avenue, Ago Palace way, Lagos
             </p>
           </div>
         </div>

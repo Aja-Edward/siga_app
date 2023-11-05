@@ -1,13 +1,13 @@
 import { connectToDB } from '@utils/database'
 import Service from '@models/serviceModel'
-import { createRouter } from 'next-connect'
+// import { createRouter } from 'next-connect'
 
-export const router = createRouter()
+// export const router = createRouter()
 export const GET = async (request, cxt) => {
-  router.run(request, cxt)
+  // router.run(request, cxt)
 
   try {
-    console.log(process.env.MONGODB_URI)
+   
     await connectToDB()
 
     const services = await Service.find({})
@@ -17,4 +17,4 @@ export const GET = async (request, cxt) => {
     return new Response('Failed to fetch your service', { status: 500 })
   }
 }
-// router.handler({ onError })
+
