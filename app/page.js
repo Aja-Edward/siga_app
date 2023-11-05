@@ -1,8 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Aclonica } from 'next/font/google'
-
 import Image from 'next/image'
 import Link from 'next/link'
 import Searchbar from '@components/Searchbar'
@@ -12,16 +10,10 @@ import HomescreenSideBar from '@components/HomescreenSideBar'
 import SigaLogo from '@public/assets/images/SIGA247logowhite.svg'
 import Loader from '@public/assets/icons/loader.svg'
 import AudioPlayer from '@components/Audiocontent/AudioPlayer'
-// import audiosource from '@public/assets/audio/christiansongs/chiomaandmercyokemmuo.mp3'
 import { BsTelephone } from 'react-icons/bs'
 import { GiArchiveRegister } from 'react-icons/gi'
 
 import { useSession } from 'next-auth/react'
-
-const aclonica = Aclonica({
-  weight: ['400'],
-  subsets: ['latin'],
-})
 
 const Homepage = () => {
   const serviceListRef = useRef(null)

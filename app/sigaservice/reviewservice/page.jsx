@@ -1,9 +1,6 @@
-import ReviewServiceForm from '@compoments/user/ReviewServiceForm'
+import ReviewServiceForm from '@components/user/ReviewServiceForm'
 
 const page = () => {
-
-
-  
   return (
     <div>
       <ReviewServiceForm />

@@ -91,6 +91,8 @@ const ReviewServiceForm = ({ service }) => {
   )
 }
 
+export default ReviewServiceForm
+
 const ReviewForm = ({ review, setReview, isLoading, submitHandler }) => {
   return (
     <form onSubmit={submitHandler} className='formControl '>
@@ -139,5 +141,3 @@ const ReviewForm = ({ review, setReview, isLoading, submitHandler }) => {
     </form>
   )
 }
-
-export default ReviewServiceForm
