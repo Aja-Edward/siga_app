@@ -1,5 +1,4 @@
 import SendMessageForm from '@components/user/SendMessageForm'
-import Contactinfo from '@components/Contactinfo'
 import Socials from '@components/Socials'
 
 const ContactPage = () => {
