@@ -1,10 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Aclonica } from 'next/font/google'
-import Image from 'next/image'
-import Link from 'next/link'
-
 import FreebieList from '@components/FreebieList'
 import Spinner from '@components/Spinner'
 

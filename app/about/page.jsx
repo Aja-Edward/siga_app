@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import AboutImage from '@public/assets/images/siga247.png'
