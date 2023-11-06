@@ -24,7 +24,7 @@ export const datas = [
   },
   {
     id: 3,
-    url: '/freebies',
+    url: '/about/team/freebie',
     icon: <RiCouponLine />,
     text: 'Freebies',
   },

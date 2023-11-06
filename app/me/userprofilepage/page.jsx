@@ -19,16 +19,19 @@ const UserProfilePage = () => {
       redirect('/')
     },
   })
-
+  console.log(session)
   useEffect(() => {
     const fetchAddresses = async () => {
-      const response = await fetch(`/api/users/${session?.user._id}/address`)
-      const singleUserAddress = await response.json()
-      setSingleAddress(singleUserAddress)
+      if (session?.user?._id) {
+        const response = await fetch(`/api/users/${session.user._id}/address`)
+        const singleUserAddress = await response.json()
+        setSingleAddress(singleUserAddress)
+        console.log(session.user)
+      }
     }
 
     fetchAddresses()
-  }, [session?.user._id])
+  }, [session?.user?._id])
 
   useEffect(() => {
     const fetchUsers = async () => {
