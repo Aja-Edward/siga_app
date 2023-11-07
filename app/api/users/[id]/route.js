@@ -8,8 +8,10 @@ import { cloudinary } from '@utils/cloudinary'
 
 export const GET = async (request, { params }) => {
   try {
+    console.log('Connecting to database')
     await connectToDB()
     const user = await User.findById(params.id)
+    console.log(' USER IN SESSION', user)
     if (!user) {
       return new Response('Cannot find User', { status: 404 })
     }
