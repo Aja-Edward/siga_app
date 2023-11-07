@@ -113,11 +113,11 @@ export const PATCH = async (request, { params }) => {
 
     console.log('MY AVATAR', avatar)
     if (filePath) {
-      console.log('MY EXPECTED RESPOSNE FOR UPLOAD AVATAR', uploadResponse)
+      
       const uploadResponse = await cloudinary.uploader.upload(filePath, {
         folder: avatarFolder,
       })
-
+console.log('MY EXPECTED RESPOSNE FOR UPLOAD AVATAR', uploadResponse)
       fs.unlinkSync(filePath)
 
       avatar = {
