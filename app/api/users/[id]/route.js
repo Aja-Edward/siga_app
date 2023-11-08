@@ -66,7 +66,7 @@ const saveFileToDisk = async (blob) => {
     const partName = path.basename(blob.name, extname)
    
     const filename = `${partName}-${Date.now()}${extname}`
-   
+   console.log("FILE NAME HERE", filename)
     const destinationPath = 'uploads/' + filename
 
     console.log('THIS IS THE DESTINATION PATH', destinationPath)
