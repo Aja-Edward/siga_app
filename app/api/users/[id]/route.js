@@ -8,14 +8,14 @@ import { cloudinary } from '@utils/cloudinary'
 
 export const GET = async (request, { params }) => {
   try {
-    console.log('Connecting to database')
+   
     await connectToDB()
     const user = await User.findById(params.id)
-    console.log(' USER IN SESSION', user)
+  
     if (!user) {
       return new Response('Cannot find User', { status: 404 })
     }
-    console.log(user)
+    
     return new Response(JSON.stringify(user), { status: 200 })
   } catch (error) {
     return new Response('No User available', { status: 500 })
@@ -60,14 +60,14 @@ const saveFileToDisk = async (blob) => {
   console.log('SAVE FILE TO DISK', saveFileToDisk)
   try {
     const blobBuffer = Buffer.from(await blob.arrayBuffer())
-    console.log('blob Buffer', blobBuffer)
+    
     const extname = path.extname(blob.name)
-    console.log('THIS IS THE EXTERNAL NAME', extname)
+    
     const partName = path.basename(blob.name, extname)
-    console.log('THIS IS THE PART NAME', partName)
+   
     const filename = `${partName}-${Date.now()}${extname}`
-    console.log('THIS IS FILE NAME', filename)
-    const destinationPath = 'public/assets/uploads/' + filename
+   
+    const destinationPath = 'uploads/' + filename
 
     console.log('THIS IS THE DESTINATION PATH', destinationPath)
 
