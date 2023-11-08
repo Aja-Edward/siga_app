@@ -8,14 +8,13 @@ import { cloudinary } from '@utils/cloudinary'
 
 export const GET = async (request, { params }) => {
   try {
-   
     await connectToDB()
     const user = await User.findById(params.id)
-  
+
     if (!user) {
       return new Response('Cannot find User', { status: 404 })
     }
-    
+
     return new Response(JSON.stringify(user), { status: 200 })
   } catch (error) {
     return new Response('No User available', { status: 500 })
@@ -60,14 +59,14 @@ const saveFileToDisk = async (blob) => {
   console.log('SAVE FILE TO DISK', saveFileToDisk)
   try {
     const blobBuffer = Buffer.from(await blob.arrayBuffer())
-    
+
     const extname = path.extname(blob.name)
-    
+
     const partName = path.basename(blob.name, extname)
-   
+
     const filename = `${partName}-${Date.now()}${extname}`
-   console.log("FILE NAME HERE", filename)
-    const destinationPath = 'uploads/' + filename
+    console.log('FILE NAME HERE', filename)
+    const destinationPath = path.join(process.cwd(), 'app', 'uploads', filename)
 
     console.log('THIS IS THE DESTINATION PATH', destinationPath)
 
@@ -113,11 +112,10 @@ export const PATCH = async (request, { params }) => {
 
     console.log('MY AVATAR', avatar)
     if (filePath) {
-      
       const uploadResponse = await cloudinary.uploader.upload(filePath, {
         folder: avatarFolder,
       })
-console.log('MY EXPECTED RESPOSNE FOR UPLOAD AVATAR', uploadResponse)
+      console.log('MY EXPECTED RESPOSNE FOR UPLOAD AVATAR', uploadResponse)
       fs.unlinkSync(filePath)
 
       avatar = {
