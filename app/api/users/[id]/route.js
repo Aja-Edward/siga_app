@@ -66,7 +66,8 @@ const saveFileToDisk = async (blob) => {
 
     const filename = `${partName}-${Date.now()}${extname}`
     console.log('FILE NAME HERE', filename)
-    const destinationPath = path.join('/tmp', filename)
+
+    const destinationPath = path.join('/tmp' + filename)
 
     console.log('THIS IS THE DESTINATION PATH', destinationPath)
 
@@ -77,7 +78,7 @@ const saveFileToDisk = async (blob) => {
         return
       }
 
-      console.log('File saved successfully to upload folder')
+      console.log('sucessfully written on the destinatinoPath', destinationPath)
     })
     return destinationPath
   } catch (error) {
