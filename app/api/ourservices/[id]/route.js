@@ -50,7 +50,7 @@ const saveFileToDisk = async (blob) => {
     const extname = path.extname(blob.name)
     const partName = path.basename(blob.name, extname)
     const filename = `${partName}-${Date.now()}${extname}`
-    const destinationPath = 'public/assets/uploads/' + filename
+    const destinationPath = 'tmp/' + filename
 
     // Write the Blob data to the destination file
     fs.writeFile(destinationPath, blobBuffer, (err) => {
@@ -107,7 +107,7 @@ export const PATCH = async (request, { params }) => {
       }
     }
 
-    let numReviews;
+    let numReviews
 
     existingService.name = fields.name
     existingService.slug = fields.slug
@@ -118,7 +118,6 @@ export const PATCH = async (request, { params }) => {
     existingService.rating = fields.rating ? Number(fields.rating) : 0
     numReviews = fields.numReviews ? Number(fields.numReviews) : 0
     if (!isNaN(numReviews)) {
-      
       existingService.numReviews = numReviews
     } else {
       console.error('Invalid numReviews value:', fields.numReviews)
