@@ -620,13 +620,13 @@ input[type='range']::before {
 
 .times-container {
   position: absolute;
-  top: 34%;
-  left: 71%;
+  top: 18%;
+  left: 79%;
   border: 2px solid #fff;
-  height: 30px;
-  width: 30px;
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #fff;
+  height: 37px;
+  width: 37px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgb(var(--foreground-rgb));
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -653,6 +653,7 @@ input[type='range']::before {
 
 .form-container form h1 {
   color: #e5e7eb;
+  margin-bottom: 0.8rem;
 }
 .form-container form input {
   padding: 10px;
@@ -3110,11 +3111,10 @@ option {
   }
 
   .times-container {
-    top: 21%;
-    left: 81%;
     border: 1px solid #fff;
-    height: 25px;
-    width: 25px;
+    height: 50px;
+    width: 50px;
+    font-size: 2rem;
   }
 }
 
@@ -3140,8 +3140,28 @@ option {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 80;
+    width: 80%;
     flex-direction: column;
+  }
+  .form-container form {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+
+  .form-container form input {
+    padding: 20px;
+    margin-top: 10px;
+    height: 70px;
+  }
+  .times-container {
+    height: 55px;
+    width: 55px;
+    font-size: 2rem;
+    top: 15%;
+    left: 89%;
   }
 }
 
@@ -3153,11 +3173,12 @@ option {
 }
 @media (max-width: 768px) {
   .times-container {
-    top: 22%;
-    left: 81%;
+    height: 50px;
+    width: 50px;
+    font-size: 2rem;
     border: 1px solid #fff;
-    height: 25px;
-    width: 25px;
+    top: 15%;
+    left: 79%;
   }
 
   .homepage_btn_wrapper {
@@ -3309,6 +3330,9 @@ option {
   }
 }
 @media (max-width: 768px) {
+  .form-container {
+    width: 100%;
+  }
   .form-container form {
     display: flex;
     justify-content: center;
