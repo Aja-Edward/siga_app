@@ -661,7 +661,8 @@ input[type='range']::before {
   border-radius: 5px;
   border: none;
   background-color: #ffffff;
-  width: 95%;
+  width: 100%;
+  box-sizing: border-box;
 }
 :focus {
   outline: none;
@@ -3154,7 +3155,6 @@ option {
   .form-container form input {
     padding: 20px;
     margin-top: 10px;
-    height: 70px;
   }
   .times-container {
     height: 55px;
