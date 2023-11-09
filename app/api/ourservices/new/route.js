@@ -37,7 +37,7 @@ const saveFileToDisk = async (blob) => {
     const extname = path.extname(blob.name)
     const partName = path.basename(blob.name, extname)
     const filename = `${partName}-${Date.now()}${extname}`
-    const destinationPath = 'public/assets/uploads/' + filename
+    const destinationPath = 'tmp/' + filename
 
     // Write the Blob data to the destination file
     fs.writeFile(destinationPath, blobBuffer, (err) => {
