@@ -4,7 +4,7 @@ import fs from 'fs'
 import { cloudinary } from '@utils/cloudinary'
 import { connectToDB } from '@utils/database'
 import { NextResponse } from 'next/server'
-// import DatauriParser from 'datauri/parser'
+import DatauriParser from 'datauri/parser'
 
 const getFormDataFields = (formData) => {
   const fields = {}
@@ -93,7 +93,7 @@ export const POST = async (req, res) => {
         return await saveFileToDisk(fileData.file)
       })
     )
-    console.log('File path', filePaths)
+    // console.log('File path', filePaths)
     const newServiceExists = await Service.findOne({ name })
     if (newServiceExists) {
       return NextResponse.json(
@@ -126,7 +126,7 @@ export const POST = async (req, res) => {
             folder: servicesFolder,
           })
 
-          fs.unlinkSync(filePath)
+          // fs.unlinkSync(filePath)
 
           newService.images.push({
             public_id: uploadResponse.public_id,

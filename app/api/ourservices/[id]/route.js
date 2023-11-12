@@ -25,7 +25,7 @@ const getFormDataFields = (formData) => {
   let files = []
 
   for (const [fieldName, fieldValue] of formData.entries()) {
-    if (fieldValue instanceof Blob) {
+    if (fieldName.includes('images')) {
       files.push({ name: fieldName, file: fieldValue })
     } else {
       fields[fieldName] = fieldValue
@@ -44,25 +44,40 @@ const checkFileType = (blob) => {
   }
 }
 const saveFileToDisk = async (blob) => {
-  checkFileType(blob)
+  // checkFileType(blob)
 
+  // try {
+  //   const blobBuffer = Buffer.from(await blob.arrayBuffer())
+  //   const extname = path.extname(blob.name)
+  //   const partName = path.basename(blob.name, extname)
+  //   const filename = `${partName}-${Date.now()}${extname}`
+  //   const destinationPath = 'tmp/' + filename
+
+  //   // Write the Blob data to the destination file
+  //   fs.writeFile(destinationPath, blobBuffer, (err) => {
+  //     if (err) {
+  //       console.error('Error writing file:', err)
+  //       return
+  //     }
+
+  //     console.log('File saved successfully to upload folder')
+  //   })
+  //   return destinationPath
+  // } catch (error) {
+  //   console.log('error: ', error.message)
+  // }
+
+  const parser = new DatauriParser()
+  checkFileType(blob)
   try {
     const blobBuffer = Buffer.from(await blob.arrayBuffer())
-    const extname = path.extname(blob.name)
-    const partName = path.basename(blob.name, extname)
-    const filename = `${partName}-${Date.now()}${extname}`
-    const destinationPath = 'tmp/' + filename
 
-    // Write the Blob data to the destination file
-    fs.writeFile(destinationPath, blobBuffer, (err) => {
-      if (err) {
-        console.error('Error writing file:', err)
-        return
-      }
+    const base64Image = parser.format(
+      path.extname(blob.name).toString(),
+      blobBuffer
+    )
 
-      console.log('File saved successfully to upload folder')
-    })
-    return destinationPath
+    return base64Image.content
   } catch (error) {
     console.log('error: ', error.message)
   }
@@ -96,7 +111,7 @@ export const PATCH = async (request, { params }) => {
             folder: servicesFolder,
           })
 
-          fs.unlinkSync(filePath)
+          // fs.unlinkSync(filePath)
 
           existingService.images.push({
             public_id: uploadResponse.public_id,
