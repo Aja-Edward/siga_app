@@ -4,13 +4,14 @@ import fs from 'fs'
 import { cloudinary } from '@utils/cloudinary'
 import { connectToDB } from '@utils/database'
 import { NextResponse } from 'next/server'
+// import DatauriParser from 'datauri/parser'
 
 const getFormDataFields = (formData) => {
   const fields = {}
   let files = []
 
   for (const [fieldName, fieldValue] of formData.entries()) {
-    if (fieldValue instanceof Blob) {
+    if (fieldName.includes('images')) {
       files.push({ name: fieldName, file: fieldValue })
     } else {
       fields[fieldName] = fieldValue
@@ -30,25 +31,39 @@ const checkFileType = (blob) => {
 }
 
 const saveFileToDisk = async (blob) => {
-  checkFileType(blob)
+  // checkFileType(blob)
 
+  // try {
+  //   const blobBuffer = Buffer.from(await blob.arrayBuffer())
+  //   const extname = path.extname(blob.name)
+  //   const partName = path.basename(blob.name, extname)
+  //   const filename = `${partName}-${Date.now()}${extname}`
+  //   const destinationPath = 'tmp/' + filename
+
+  //   // Write the Blob data to the destination file
+  //   fs.writeFile(destinationPath, blobBuffer, (err) => {
+  //     if (err) {
+  //       console.error('Error writing file:', err)
+  //       return
+  //     }
+
+  //     console.log('File saved successfully to upload folder')
+  //   })
+  //   return destinationPath
+  // } catch (error) {
+  //   console.log('error: ', error.message)
+  // }
+  const parser = new DatauriParser()
+  checkFileType(blob)
   try {
     const blobBuffer = Buffer.from(await blob.arrayBuffer())
-    const extname = path.extname(blob.name)
-    const partName = path.basename(blob.name, extname)
-    const filename = `${partName}-${Date.now()}${extname}`
-    const destinationPath = 'tmp/' + filename
 
-    // Write the Blob data to the destination file
-    fs.writeFile(destinationPath, blobBuffer, (err) => {
-      if (err) {
-        console.error('Error writing file:', err)
-        return
-      }
+    const base64Image = parser.format(
+      path.extname(blob.name).toString(),
+      blobBuffer
+    )
 
-      console.log('File saved successfully to upload folder')
-    })
-    return destinationPath
+    return base64Image.content
   } catch (error) {
     console.log('error: ', error.message)
   }

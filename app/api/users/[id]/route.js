@@ -3,6 +3,7 @@ import User from '@models/userModel'
 import path from 'path'
 import fs from 'fs'
 import { cloudinary } from '@utils/cloudinary'
+import DatauriParser from 'datauri/parser'
 
 // GET ALL THE USER
 
@@ -29,7 +30,7 @@ const getFormDataFields = (formData) => {
     let files = []
     console.log('My files and files1', files, fields)
     for (const field of formData) {
-      if (field[1] instanceof Blob) {
+      if (field[0] === 'image') {
         files.push({ name: field[0], file: field[1] })
         console.log('My files and files2', files, fields)
       } else {
@@ -54,33 +55,48 @@ const checkFileType = (blob) => {
   }
 }
 const saveFileToDisk = async (blob) => {
-  checkFileType(blob)
+  // checkFileType(blob)
 
-  console.log('SAVE FILE TO DISK', saveFileToDisk)
+  // console.log('SAVE FILE TO DISK', saveFileToDisk)
+  // try {
+  //   const blobBuffer = Buffer.from(await blob.arrayBuffer())
+
+  //   const extname = path.extname(blob.name)
+
+  //   const partName = path.basename(blob.name, extname)
+
+  //   const filename = `${partName}-${Date.now()}${extname}`
+  //   console.log('FILE NAME HERE', filename)
+
+  //   const destinationPath = 'public/assets/uploads/' + filename
+
+  //   console.log('THIS IS THE DESTINATION PATH', destinationPath)
+
+  //   // Write the Blob data to the destination file
+  //   fs.writeFile(destinationPath, blobBuffer, (err) => {
+  //     if (err) {
+  //       console.error('Error writing file:', err)
+  //       return
+  //     }
+
+  //     console.log('sucessfully written on the destinatinoPath', destinationPath)
+  //   })
+  //   return destinationPath
+  // } catch (error) {
+  //   console.log('error: ', error.message)
+  // }
+
+  const parser = new DatauriParser()
+  checkFileType(blob)
   try {
     const blobBuffer = Buffer.from(await blob.arrayBuffer())
 
-    const extname = path.extname(blob.name)
+    const base64Image = parser.format(
+      path.extname(blob.name).toString(),
+      blobBuffer
+    )
 
-    const partName = path.basename(blob.name, extname)
-
-    const filename = `${partName}-${Date.now()}${extname}`
-    console.log('FILE NAME HERE', filename)
-
-    const destinationPath = 'tmp/' + filename
-
-    console.log('THIS IS THE DESTINATION PATH', destinationPath)
-
-    // Write the Blob data to the destination file
-    fs.writeFile(destinationPath, blobBuffer, (err) => {
-      if (err) {
-        console.error('Error writing file:', err)
-        return
-      }
-
-      console.log('sucessfully written on the destinatinoPath', destinationPath)
-    })
-    return destinationPath
+    return base64Image.content
   } catch (error) {
     console.log('error: ', error.message)
   }
@@ -117,7 +133,7 @@ export const PATCH = async (request, { params }) => {
         folder: avatarFolder,
       })
       console.log('MY EXPECTED RESPOSNE FOR UPLOAD AVATAR', uploadResponse)
-      fs.unlinkSync(filePath)
+      // fs.unlinkSync(filePath)
 
       avatar = {
         public_id: uploadResponse.public_id,

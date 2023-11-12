@@ -3,6 +3,7 @@ import Service from '@models/serviceModel'
 import path from 'path'
 import fs from 'fs'
 import { cloudinary } from '@utils/cloudinary'
+import DatauriParser from 'datauri/parser'
 
 export const GET = async (request, { params }) => {
   try {
