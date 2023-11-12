@@ -10,7 +10,7 @@ export const GET = async (request, cxt) => {
     await connectToDB()
 
     const services = await Service.find({})
-    console.log(services)
+    console.log('THIS IS THE SERVICES', services)
     return new Response(JSON.stringify(services), { status: 200 })
   } catch (error) {
     return new Response('Failed to fetch your service', { status: 500 })
