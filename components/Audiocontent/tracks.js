@@ -1,7 +1,7 @@
 export const tracks = [
   {
     title: 'Arthur Chery',
-    src: 'assets/audio/rocks/rocksarthurcherymetal.mp3',
+    src: 'assets/audio/rock/rocksarthurcherymetal.mp3',
   },
   {
     title: 'Ada Ehi Congratulations',
