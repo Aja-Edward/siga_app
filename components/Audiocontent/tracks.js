@@ -1,8 +1,7 @@
-
 export const tracks = [
   {
-    title: 'Chioma Jesus and Mercy Chinwo Oke mmuo',
-    src: 'assets/audio/christiansongs/chiomaandmercyokemmuo.mp3',
+    title: 'Arthur Chery',
+    src: 'assets/audio/rocks/rocksarthurcherymetal.mp3',
   },
   {
     title: 'Ada Ehi Congratulations',
@@ -14,8 +13,8 @@ export const tracks = [
     src: 'assets/audio/classicsongs/AgbaluAkaNaAzoAni.mp3',
   },
   {
-    title: 'Chief Oliver de Coque Nwanne di na nmba',
-    src: 'assets/audio/classicsongs/nwannedinnambaoliverdecoque.mp3',
+    title: 'Luke Bergs, We made it',
+    src: 'assets/audio/pop/Luke-Bergs-We-Made-It(chosic.com).mp3',
   },
   {
     title: 'Piano concert classic songs',
