@@ -2092,7 +2092,8 @@ li svg {
 .artist-instrument {
   display: grid;
   grid-template-columns: (1fr, 1fr);
-  width: 97%;
+  width: 100%;
+  box-sizing: border-box;
 }
 .artist-instrument .form-group {
   display: flex;
@@ -2109,7 +2110,7 @@ li svg {
 .message-toggle-btn {
   display: flex;
   justify-content: space-between;
-  width: 95%;
+  width: 100%;
 
   box-sizing: border-box;
   margin: 10px 5px 10px 0;
@@ -2560,11 +2561,13 @@ li svg {
 .email_body .form-group input,
 .form-group select,
 .email_body .form-group textarea {
-  width: 97%;
+  width: 100%;
   box-sizing: border-box;
   color: rgb(var(--backround-rgb));
-  font-size: 0.6rem;
-  padding: 5px;
+  font-size: 0.9rem;
+  padding: 10px;
+  color: rgb(var(--foreground-rgb));
+  border: 2px solid gray;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -3119,9 +3122,9 @@ option {
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
 }
 
@@ -3687,7 +3690,8 @@ option {
     text-align: justify;
   }
   .artist-instrument {
-    width: 95%;
+    width: 100%;
+    box-sizing: border-box;
   }
   .instrument-select {
     width: 95%;
@@ -3761,7 +3765,7 @@ option {
   .email_body .form-group input,
   .form-group select,
   .email_body .form-group textarea {
-    width: 95%;
+    width: 100%;
   }
   .service-select {
     width: 95%;
