@@ -1723,10 +1723,9 @@ li svg {
   font-weight: 600;
 }
 .togglesibarburger-container-user {
-  position: absolute;
   z-index: 3;
-  top: 3.2%;
-  right: 5%;
+  margin-top: 5%;
+  margin-left: 6%;
   font-size: 2.2rem;
   font-weight: 100;
   width: 5.1rem;
@@ -3563,12 +3562,6 @@ option {
   }
 }
 
-@media (max-width: 900px) {
-  .togglesibarburger-container-user {
-    top: 6%;
-  }
-}
-
 @media (max-width: 1024px) {
   .update_user {
     padding: 1.75rem;
@@ -3599,7 +3592,6 @@ option {
   .togglesibarburger-container-user {
     display: block;
     z-index: 4;
-    top: 6%;
   }
   .togglebarIcon {
     display: block;
@@ -3787,6 +3779,7 @@ option {
   }
   .contactuswrapper p {
     flex: 1;
+    width: 90%;
   }
   .contactuswrapper h2 {
     font-size: 1.5rem;
