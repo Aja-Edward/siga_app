@@ -3428,10 +3428,16 @@ option {
   .privacy-session-container {
     text-align: center;
   }
+  .privacy-wrapper {
+    padding: 1rem;
+  }
 
   .privacy-wrapper h1 {
     font-size: 1.2rem;
     line-height: 1.5rem;
+  }
+  .privacy-wrapper p {
+    width: 100%;
   }
 
   .privacy-wrapper h2 {
