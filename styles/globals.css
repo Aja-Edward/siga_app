@@ -3154,6 +3154,9 @@ option {
     box-sizing: border-box;
     flex-direction: column;
   }
+  .form-container form span {
+    font-size: 0.7rem;
+  }
 
   .form-container form {
     width: 100%;
