@@ -483,6 +483,7 @@ const SendMessageForm = () => {
               className='form-group'
               style={{ display: 'flex', flexDirection: 'column' }}
             >
+              <label className='mobile-label'>Date</label>
               <input
                 type='date'
                 id='date'
@@ -501,6 +502,7 @@ const SendMessageForm = () => {
               className='form-group'
               style={{ display: 'flex', flexDirection: 'column' }}
             >
+              <label className='mobile-label'>Time</label>
               <input
                 type='time'
                 id='time'

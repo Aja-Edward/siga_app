@@ -2115,7 +2115,12 @@ li svg {
   box-sizing: border-box;
   margin: 10px 5px 10px 0;
 }
-
+.mobile-label {
+  color: rgb(var(--foreground-rgb));
+  font-weight: 400;
+  font-size: large;
+  display: none;
+}
 .message-toggle-btn button {
   padding: 10px 15px;
   box-sizing: border-box;
@@ -3147,6 +3152,7 @@ option {
     width: 80%;
     flex-direction: column;
   }
+
   .form-container form {
     width: 100%;
     display: flex;
@@ -3196,6 +3202,9 @@ option {
   .freebie-title h1 {
     color: #fff;
     font-size: 1.5rem;
+  }
+  .mobile-label {
+    display: block;
   }
   .freebie-description-body h3 {
     line-height: 2rem;
