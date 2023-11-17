@@ -264,6 +264,43 @@ const Privacy = () => {
               SIGA247 shall only request for the payment of the agreed fee after
               it has carried all necessary authentication process.
             </p>
+            <p>
+              privacy policy Private details such as phone numbers, email
+              addresses, contact locations , names etc provided by clients are
+              secured by SIGA247 and not stored on the Web.
+            </p>
+            <p>
+              Hence such details are not accessible to any other user or service
+              provider operating on the App; such details shall be used only
+              within the Terms of Service as agreed upon between SIGA its
+              clients.
+            </p>
+            <p>
+              Pictures and videos taken during or at point of service will not
+              be used for commercial purposes such as adverts or jingles .
+              SIGA247 will create its own contents for such if needed.
+            </p>
+            <p>
+              SIGA shall seek due permissions from the client, in events where
+              it wishes to use a portion or complete video/picture shot taken at
+              a client's Event or private service session or any commercial
+              purpose.
+            </p>
+            <p>
+              Informations from SIGA such as promos , service upgrade, upcoming
+              events etc will only be sent to the client online through the
+              medium provided by the client.
+            </p>
+            <p>
+              Before an Agent(s) is or are sent to the client, details of such a
+              person or persons shall be provided for the client, including a
+              photo for proper identification.
+            </p>
+            <p>
+              Details of money transactions between SIGA247 and clients are kept
+              confidential and can only be made available if requested by
+              clients.
+            </p>
           </div>
         </section>
       </div>
