@@ -602,14 +602,15 @@ input[type='range']::before {
 }
 
 .form-container {
+  position: relative;
   margin: 0 auto;
-  height: 70vh;
+  height: 95vh;
   width: 60vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: rgb(var(--foreground-rgb));
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
 }
 
@@ -620,8 +621,8 @@ input[type='range']::before {
 
 .times-container {
   position: absolute;
-  top: 18%;
-  left: 79%;
+  top: -2%;
+  right: -2%;
   border: 2px solid #fff;
   height: 37px;
   width: 37px;
@@ -654,6 +655,7 @@ input[type='range']::before {
 .form-container form h1 {
   color: #e5e7eb;
   margin-bottom: 0.8rem;
+  font-size: 1.5rem;
 }
 .form-container form input {
   padding: 10px;
@@ -674,8 +676,8 @@ input[type='range']::before {
   color: #ffffff;
   background-color: rgb(var(--foreground-rgb));
   border-radius: 20px;
-  margin-top: 2.5rem;
-  margin-bottom: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   cursor: pointer;
 }
 
@@ -3148,7 +3150,8 @@ option {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 80%;
+    width: 100%;
+    box-sizing: border-box;
     flex-direction: column;
   }
 
@@ -3168,8 +3171,6 @@ option {
     height: 55px;
     width: 55px;
     font-size: 2rem;
-    top: 15%;
-    left: 89%;
   }
 }
 
@@ -3185,8 +3186,7 @@ option {
     width: 50px;
     font-size: 2rem;
     border: 1px solid #fff;
-    top: 15%;
-    left: 79%;
+    right: -1%;
   }
 
   .homepage_btn_wrapper {
