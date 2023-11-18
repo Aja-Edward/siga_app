@@ -104,7 +104,7 @@ const Homepage = () => {
                     }
                   }}
                 >
-                  <span>Book a Service</span> <FaLongArrowAltDown />
+                  <span>Book Us</span> <FaLongArrowAltDown />
                 </button>
               </Link>
             )}
