@@ -114,7 +114,7 @@ const Homepage = () => {
                 className='homepage_action_searchbtn'
                 style={{ cursor: 'pointer' }}
               >
-                {/* Spinner */} <span>Book</span>
+                {/* Spinner */} <span>Book Us</span>
                 <BsTelephone style={{ color: '#ffffff', fontWeight: 800 }} />
               </button>
             </Link>
