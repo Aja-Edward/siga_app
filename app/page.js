@@ -104,7 +104,7 @@ const Homepage = () => {
                     }
                   }}
                 >
-                  <span>Book Us</span> <FaLongArrowAltDown />
+                  <span>Services</span> <FaLongArrowAltDown />
                 </button>
               </Link>
             )}
@@ -114,7 +114,7 @@ const Homepage = () => {
                 className='homepage_action_searchbtn'
                 style={{ cursor: 'pointer' }}
               >
-                {/* Spinner */} <span>Contact </span>
+                {/* Spinner */} <span>Book</span>
                 <BsTelephone style={{ color: '#ffffff', fontWeight: 800 }} />
               </button>
             </Link>
