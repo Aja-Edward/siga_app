@@ -69,9 +69,11 @@ const UpdateServiceForm = ({ type }) => {
   useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
-        const response = await fetch(`/api/ourservices/${serviceslug}`)
+        const response = await fetch(`/api/ourservices/${serviceslug}`, {
+          cache: 'no-store',
+        })
         const service = await response.json()
-       
+
         if (service) {
           setName(service.name)
           setSlug(service.slug)

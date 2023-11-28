@@ -23,7 +23,7 @@ const Homepage = () => {
 
   useEffect(() => {
     const fetchServices = async () => {
-      const response = await fetch(`/api/ourservices`)
+      const response = await fetch(`/api/ourservices`, { cache: 'no-store' })
       const data = await response.json()
       setData(data)
       setIsLoading(false)

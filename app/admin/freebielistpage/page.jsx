@@ -14,7 +14,9 @@ const OurFreebieListPage = () => {
   useEffect(() => {
     const fetchFreebieLists = async () => {
       try {
-        const { data } = await axios.get('/api/team/serviceprovider')
+        const { data } = await axios.get('/api/team/serviceprovider', {
+          cache: 'no-store',
+        })
         setAllFreebies(data)
       } catch (error) {
         console.log(error)

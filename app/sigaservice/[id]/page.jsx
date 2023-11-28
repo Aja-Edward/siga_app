@@ -12,7 +12,9 @@ const ServiceDetailPage = ({ params }) => {
 
   useEffect(() => {
     const fetchServiceDetails = async () => {
-      const response = await fetch(`/api/ourservices/${id}`)
+      const response = await fetch(`/api/ourservices/${id}`, {
+        cache: 'no-store',
+      })
       const service = await response.json()
       console.log('service', service)
 

@@ -19,7 +19,9 @@ const ServiceListPage = () => {
   useEffect(() => {
     const fetchServiceLists = async () => {
       try {
-        const { data } = await axios.get('/api/ourservices')
+        const { data } = await axios.get('/api/ourservices', {
+          cache: 'no-store',
+        })
         setAllSigaServices(data)
       } catch (error) {
         console.log(error)

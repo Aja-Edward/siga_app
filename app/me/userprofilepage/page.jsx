@@ -23,7 +23,9 @@ const UserProfilePage = () => {
   useEffect(() => {
     const fetchAddresses = async () => {
       if (session?.user?._id) {
-        const response = await fetch(`/api/users/${session.user._id}/address`)
+        const response = await fetch(`/api/users/${session.user._id}/address`, {
+          cache: 'no-store',
+        })
         const singleUserAddress = await response.json()
         setSingleAddress(singleUserAddress)
         console.log(session.user)
@@ -35,7 +37,9 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch(`/api/users/${session?.user._id}`)
+      const response = await fetch(`/api/users/${session?.user._id}`, {
+        cache: 'no-store',
+      })
       const singleUserInfo = await response.json()
       setSingleUser(singleUserInfo)
       console.log(singleUserInfo)
