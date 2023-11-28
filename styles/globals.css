@@ -2508,22 +2508,20 @@ li svg {
 /* Edit address form */
 
 .Editaddressform-container {
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.Edditaddressform-wrapper {
+.Editaddressform-wrapper {
   width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  max-width: 1200px; /* Adjust as needed */
 }
 
 .Editaddressform {
   display: flex;
   flex-direction: column;
-  margin-right: -1rem;
-  margin-left: -1rem;
 }
 /* USER SEND MESSAGE FORM CSS */
 .message_body {
