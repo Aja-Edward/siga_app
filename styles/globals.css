@@ -2505,6 +2505,26 @@ li svg {
   text-align: center;
 }
 
+/* Edit address form */
+
+.Editaddressform-container {
+  padding: 10px;
+}
+
+.Edditaddressform-wrapper {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.Editaddressform {
+  display: flex;
+  flex-direction: column;
+  margin-right: -1rem;
+  margin-left: -1rem;
+}
 /* USER SEND MESSAGE FORM CSS */
 .message_body {
   height: 700px;
@@ -3049,6 +3069,13 @@ option {
   text-align: justify;
 }
 /* Media query for small screen */
+@media (max-width: 1280px) {
+  .Edditaddressform-wrapper {
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
 
 @media (max-width: 1023px) {
   .image-container {
@@ -3058,6 +3085,12 @@ option {
     align-items: center;
     margin: 1.2rem auto auto auto;
     margin-right: 0;
+  }
+  .Edditaddressform-wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
   .contactinfo .box .text h3 {
     display: none;
