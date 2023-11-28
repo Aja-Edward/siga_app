@@ -9,7 +9,6 @@ import { redirect } from 'next/navigation'
 import UserProfile from '@components/auth/UserProfile'
 import AuthContext from '@context/AuthContext'
 
-
 const ProfilePage = () => {
   const [addresses, setAddresses] = useState([])
   const [usersProfile, setUsersProfile] = useState([])
@@ -22,7 +21,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchAddresses = async () => {
-      const response = await fetch(`/api/address`)
+      const response = await fetch(`/api/address`, { cache: 'no-store' })
       const addressData = await response.json()
       setAddresses(addressData)
       console.log(addressData)

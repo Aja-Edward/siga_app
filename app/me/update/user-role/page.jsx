@@ -23,12 +23,18 @@ const UpdateUserRole = () => {
     if (!userId) return alert('User Id not found!')
 
     try {
-      const response = await axios.patch(`/api/userlist/${userId}`, {
-        role: user.role, // Directly pass the data you want to update
+      const response = await fetch(`/api/userlist/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          role: user.role, // Directly pass the data you want to update
+        }),
+        cache: 'no-store',
       })
 
-      if (response.status === 200) {
-        console.log(response.status)
+      if (response.ok) {
         alert('User Role updated successfully!')
         router.push('/admin/users')
       }

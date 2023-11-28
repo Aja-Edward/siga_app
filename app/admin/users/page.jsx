@@ -24,7 +24,7 @@ const UserListPage = () => {
 
   const fetchUserList = async () => {
     try {
-      const { data } = await axios.get('/api/userlist')
+      const { data } = await axios.get('/api/userlist', { cache: 'no-store' })
       setAllUsers(data)
     } catch (error) {
       console.log(error)
