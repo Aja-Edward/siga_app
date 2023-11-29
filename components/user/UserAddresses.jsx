@@ -31,7 +31,7 @@ const UserAddresses = ({ useraddress, handleDelete, handleEdit, params }) => {
   }
 
   return (
-    <div className='address-container'>
+   
       <figure className='address-container-wrapper'>
         <figcaption className='address-card'>
           <span className='address-user'>
@@ -82,7 +82,7 @@ const UserAddresses = ({ useraddress, handleDelete, handleEdit, params }) => {
             )}
         </figcaption>
       </figure>
-    </div>
+  
   )
 }
 

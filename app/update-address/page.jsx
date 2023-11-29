@@ -37,6 +37,7 @@ const EditAddressPage = () => {
           zipCode: address.zipCode,
           country: address.country,
         }),
+        cache: 'no-store',
       })
       if (response.ok) {
         alert('Address updated successfully!')

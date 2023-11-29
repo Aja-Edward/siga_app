@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react'
 import { redirect, useRouter, useSearchParams } from 'next/navigation'
 
 const ServiceListPage = () => {
-    const [allSigaServices, setAllSigaServices] = useState([])
+  const [allSigaServices, setAllSigaServices] = useState([])
   const router = useRouter()
   const { data: session } = useSession({
     required: true,
@@ -19,10 +19,13 @@ const ServiceListPage = () => {
   useEffect(() => {
     const fetchServiceLists = async () => {
       try {
-        const { data } = await axios.get('/api/ourservices', {
-          cache: 'no-store',
-        })
+        const response = await fetch(`/api/ourservices`, { cache: 'no-store' })
+        const data = await response.json()
         setAllSigaServices(data)
+        // const { data } = await axios.get('/api/ourservices', {
+        //   cache: 'no-store',
+        // })
+        // setAllSigaServices(data)
       } catch (error) {
         console.log(error)
       }
@@ -40,7 +43,7 @@ const ServiceListPage = () => {
     const hasConfirmed = confirm(
       'Are you sure you want to delete this service?'
     )
-   
+
     console.log('clicked me now', slug)
     if (hasConfirmed) {
       try {
@@ -49,7 +52,7 @@ const ServiceListPage = () => {
           (service) => service.slug !== slug
         )
         setAllSigaServices(updatedServices)
-        alert("Service Deleted Successfully")
+        alert('Service Deleted Successfully')
       } catch (error) {
         console.log(error)
       }

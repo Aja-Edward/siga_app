@@ -1763,7 +1763,9 @@ li svg {
 
 .adminprofilepage-container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .adminprofilepage-container .image-container {
@@ -2335,19 +2337,29 @@ li svg {
   box-shadow: 1px 1px 5px 1px rgb(119, 119, 119);
   cursor: pointer;
 }
-.address-container {
-  margin-bottom: 1.5rem;
+
+.address-main-container {
+  width: 80%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.address-container {
 }
 
+.address-container-wrapper {
+  width: 100%;
+}
 .address-card {
   display: flex;
   justify-content: center;
   flex-direction: column;
   background-color: #f0f0f0;
   padding: 1rem;
-  max-width: 280px;
-  width: 80%;
+  height: 280px;
+  width: 280px;
   border-radius: 0.5rem;
   cursor: pointer;
   color: gray;
@@ -2505,6 +2517,23 @@ li svg {
   text-align: center;
 }
 
+/* Edit address form */
+
+.Editaddressform-container {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; */
+}
+
+/* .Editaddressform-wrapper {
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed 
+} */
+
+.Editaddressform {
+  display: flex;
+}
 /* USER SEND MESSAGE FORM CSS */
 .message_body {
   height: 700px;
@@ -3049,6 +3078,13 @@ option {
   text-align: justify;
 }
 /* Media query for small screen */
+@media (max-width: 1280px) {
+  .Edditaddressform-wrapper {
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
 
 @media (max-width: 1023px) {
   .image-container {
@@ -3058,6 +3094,12 @@ option {
     align-items: center;
     margin: 1.2rem auto auto auto;
     margin-right: 0;
+  }
+  .Edditaddressform-wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
   .contactinfo .box .text h3 {
     display: none;
@@ -3534,9 +3576,9 @@ option {
     height: 100%;
     display: none;
   }
-  .address-section-container {
+  /* .address-section-container {
     display: none;
-  }
+  } */
   .toggleburger-container {
     display: block;
     font-size: 1.8rem;

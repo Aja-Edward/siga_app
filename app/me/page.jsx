@@ -31,7 +31,7 @@ const ProfilePage = () => {
   }, [])
 
   return (
-    <section>
+    <section >
       <Profile addressData={addresses} />
     </section>
   )

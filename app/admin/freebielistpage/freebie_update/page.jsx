@@ -59,7 +59,9 @@ const EditFreebiePage = () => {
 
   useEffect(() => {
     const getFreebieDetail = async () => {
-      const response = await fetch(`/api/team/serviceprovider/${freebieSlug}`)
+      const response = await fetch(`/api/team/serviceprovider/${freebieSlug}`, {
+        cache: 'no-store',
+      })
       const data = await response.json()
 
       setFreebie({
