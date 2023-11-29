@@ -3576,9 +3576,9 @@ option {
     height: 100%;
     display: none;
   }
-  /* .address-section-container {
-    display: none;
-  } */
+  .address-section-container {
+    display: block;
+  }
   .toggleburger-container {
     display: block;
     font-size: 1.8rem;
