@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react'
 import { redirect, useRouter, useSearchParams } from 'next/navigation'
 import AuthContext from '@context/AuthContext'
 import AllUserList from '@components/user/AllUserList'
+import { AiFillSketchCircle } from 'react-icons/ai'
 
 const UserListPage = () => {
   const searchParams = useSearchParams()
@@ -16,15 +17,21 @@ const UserListPage = () => {
   const [singleUser, setSingleUser] = useState(null)
   const router = useRouter()
   const { data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/me/login?callbackUrl=/admin/users')
-    },
+    // required: true,
+    // onUnauthenticated() {
+    //   redirect('/me/login?callbackUrl=/admin/users')
+    // },
   })
+
+  //  const response = await fetch(`/api/ourservices`, { cache: 'no-store' })
+  // const data = await response.json()
+  // setData(data)
+  // setIsLoading(false)
 
   const fetchUserList = async () => {
     try {
-      const { data } = await axios.get('/api/userlist', { cache: 'no-store' })
+      const response = await fetch('/api/userlist', { cache: 'no-store' })
+      const data = await response.json()
       setAllUsers(data)
     } catch (error) {
       console.log(error)
@@ -61,7 +68,9 @@ const UserListPage = () => {
   const fetchSingleUser = async () => {
     if (session?.user._id) {
       try {
-        const response = await fetch(`/api/users/${session.user._id}`)
+        const response = await fetch(`/api/users/${session.user._id}`, {
+          cache: 'no-store',
+        })
         const singleUserInfo = await response.json()
         setSingleUser(singleUserInfo)
       } catch (error) {

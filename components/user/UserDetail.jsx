@@ -17,23 +17,25 @@ const UserDetail = ({
         <div className='singleuserdetails' key={singleUser._id}>
           <ul>
             <div className='image_container'>
-              {singleUser.avatar && (
-                <Image
-                  src={singleUser?.avatar?.url}
-                  width={50}
-                  height={50}
-                  style={{ borderRadius: '50%' }}
-                />
-              )}
+              <Image
+                src={
+                  singleUser?.avatar
+                    ? singleUser.avatar.url
+                    : '/assets/images/defaultavatar.jpg'
+                }
+                width={50}
+                height={50}
+                style={{ borderRadius: '50%' }}
+              />
             </div>
             <h3>User Info</h3>
-            <li>Name: {singleUser.name}</li>
-            <li>Email: {singleUser.email}</li>
+            <li>Name: {singleUser.name.substring(0, 20)}</li>
+            <li>Email: {singleUser.email.substring(0, 20)}</li>
             <li>Tel: {singleUser.phone}</li>
-            <li>Role: {singleUser.role}</li>
-            <li>Title: {singleUser.title}</li>
-            <li>Description: {singleUser.description.substring(0, 100)}</li>
-            <li>ID: {singleUser._id}</li>
+            <li>Role: {singleUser.role.substring(0, 20)}</li>
+            <li>Title: {singleUser.title.substring(0, 20)}</li>
+            <li>Description: {singleUser.description.substring(0, 20)}</li>
+            <li>ID: {singleUser._id.substring(0, 20)}</li>
             <p
               style={{
                 fontFamily: 'inter',

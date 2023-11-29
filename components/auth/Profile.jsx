@@ -80,11 +80,13 @@ const Profile = ({ addressData }) => {
             ))}
         </figcaption>
         <hr className='my-4' />
-        {addressData.map((useraddress) => (
-          <div className='address-adminPage-container'>
-            <UserAddresses useraddress={useraddress} user={user} />
-          </div>
-        ))}
+        <div className='address-main-container'>
+          {addressData.map((useraddress) => (
+            <div className='address-adminPage-container'>
+              <UserAddresses useraddress={useraddress} user={user} />
+            </div>
+          ))}
+        </div>
       </figure>
 
       <Link href={'/address/new'} className='admin-address-btn-wrapper'>

@@ -13,7 +13,7 @@ const TeamDetailPage = ({ params }) => {
 
   useEffect(() => {
     const fetchTeamDetails = async () => {
-      const response = await fetch(`/api/users/${id}`)
+      const response = await fetch(`/api/users/${id}`, { cache: 'no-store' })
       const team = await response.json()
       console.log('Service from where to get Team', team)
       setTeam(team)
@@ -39,8 +39,6 @@ const TeamDetailPage = ({ params }) => {
 
   return (
     <div>
-     
-
       <TeamDetail team={team} loading={loading} />
     </div>
   )

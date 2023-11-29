@@ -11,7 +11,9 @@ const FreebieDetailPage = ({ params }) => {
 
   useEffect(() => {
     const fetchFreebieDetail = async () => {
-      const response = await fetch(`/api/team/serviceprovider/${id}`)
+      const response = await fetch(`/api/team/serviceprovider/${id}`, {
+        cache: 'no-store',
+      })
       const freebie = await response.json()
       console.log('freebie', freebie)
 

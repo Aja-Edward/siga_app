@@ -54,7 +54,7 @@ const AllUserList = ({
             src={
               user?.avatar
                 ? user.avatar.url
-                : '/assets/images/SIGA247logowhite.svg'
+                : '/assets/images/defaultavatar.jpg'
             }
             width={100}
             height={100}

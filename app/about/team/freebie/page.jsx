@@ -11,7 +11,9 @@ const OurFreebiePage = () => {
 
   useEffect(() => {
     const fetchFreebies = async () => {
-      const response = await fetch('/api/team/serviceprovider')
+      const response = await fetch('/api/team/serviceprovider', {
+        cache: 'no-store',
+      })
       const data = await response.json()
       setData(data)
       setIsLoading(false)

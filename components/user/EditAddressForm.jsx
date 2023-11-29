@@ -13,28 +13,36 @@ const EditAddressForm = ({
 }) => {
   return (
     <>
-      <section className="Editaddressform-container">
+      <section className='Editaddressform-container'>
         <div className='Editaddressform-wrapper'>
           <div className='Editaddressform'>
             <Sidebar />
-            <main className='md:w-2/3 lg:w-3/4 px-4'>
-              <div
-                style={{ maxWidth: '480px' }}
-                className='mt-1 mb-20 p-4 md:p-7 mx-auto rounded bg-white shadow-lg'
-              >
+            <main
+              style={{ maxWidth: '480px' }}
+              className='updatepassword-container'
+            >
+              <div style={{ maxWidth: '480px' }} className=''>
                 <form onSubmit={handleSubmit}>
-                  <h2 className='mb-5 text-2xl font-semibold'>
+                  <h2
+                    className='updatepassword-form'
+                    style={{ color: 'white' }}
+                  >
                     {type} Address
                   </h2>
-                  <p>
+                  <p style={{ color: 'white' }}>
                     {' '}
                     {type}
                     {description}
                   </p>
-                  <div className='mb-4 md:col-span-2'>
-                    <label className='block mb-1'> Street* </label>
+                  <div style={{ marginBottom: '8px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px' }}>
+                      {' '}
+                      Street <span style={{ color: 'red' }}>*</span>{' '}
+                    </label>
                     <input
-                      className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+                      className='editaddress-input'
+                      name='street'
+                      id='street'
                       type='text'
                       placeholder='Type your address'
                       value={address.street}
@@ -44,70 +52,93 @@ const EditAddressForm = ({
                     />
                   </div>
 
-                  <div className='grid md:grid-cols-2 gap-x-3'>
-                    <div className='mb-4 md:col-span-1'>
-                      <label className='block mb-1'> City </label>
-                      <input
-                        className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
-                        type='text'
-                        placeholder='Type your city'
-                        value={address.city}
-                        // onChange={(e) => setCity(e.target.value)}
-                        onChange={(e) =>
-                          setAddress({ ...address, city: e.target.value })
-                        }
-                      />
-                    </div>
-
-                    <div className='mb-4 md:col-span-1'>
-                      <label className='block mb-1'> State </label>
-                      <input
-                        className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
-                        type='text'
-                        placeholder='Type state here'
-                        value={address.state}
-                        // onChange={(e) => setState(e.target.value)}
-                        onChange={(e) =>
-                          setAddress({ ...address, state: e.target.value })
-                        }
-                      />
-                    </div>
+                  <div style={{ marginBottom: '8px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px' }}>
+                      {' '}
+                      City<span style={{ color: 'red' }}>*</span>{' '}
+                    </label>
+                    <input
+                      className='editaddress-input'
+                      type='text'
+                      name='city'
+                      id='city'
+                      placeholder='Type your city'
+                      value={address.city}
+                      // onChange={(e) => setCity(e.target.value)}
+                      onChange={(e) =>
+                        setAddress({ ...address, city: e.target.value })
+                      }
+                    />
                   </div>
 
-                  <div className='grid md:grid-cols-2 gap-x-2'>
-                    <div className='mb-4 md:col-span-1'>
-                      <label className='block mb-1'> ZIP code </label>
-                      <input
-                        className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
-                        type='number'
-                        placeholder='Type zip code here'
-                        value={address.zipCode}
-                        // onChange={(e) => setZipCode(e.target.value)}
-                        onChange={(e) =>
-                          setAddress({ ...address, zipCode: e.target.value })
-                        }
-                      />
-                    </div>
-
-                    <div className='mb-4 md:col-span-1'>
-                      <label className='block mb-1'> Phone No </label>
-                      <input
-                        className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
-                        type='number'
-                        placeholder='Type phone no here'
-                        value={address.phoneNo}
-                        // onChange={(e) => setPhoneNo(e.target.value)}
-                        onChange={(e) =>
-                          setAddress({ ...address, phoneNo: e.target.value })
-                        }
-                      />
-                    </div>
+                  <div style={{ marginBottom: '8px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px' }}>
+                      {' '}
+                      State<span style={{ color: 'red' }}>*</span>{' '}
+                    </label>
+                    <input
+                      className='editaddress-input'
+                      name='state'
+                      id='state'
+                      type='text'
+                      placeholder='Type state here'
+                      value={address.state}
+                      // onChange={(e) => setState(e.target.value)}
+                      onChange={(e) =>
+                        setAddress({ ...address, state: e.target.value })
+                      }
+                    />
                   </div>
 
-                  <div className='mb-4 md:col-span-2'>
-                    <label className='block mb-1'> Country </label>
+                  <div style={{ marginBottom: '8px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px' }}>
+                      {' '}
+                      ZIP code<span style={{ color: 'red' }}>*</span>{' '}
+                    </label>
+                    <input
+                      className='editaddress-input'
+                      name='zipCode'
+                      id='zipCode'
+                      type='number'
+                      placeholder='Type zip code here'
+                      value={address.zipCode}
+                      // onChange={(e) => setZipCode(e.target.value)}
+                      onChange={(e) =>
+                        setAddress({ ...address, zipCode: e.target.value })
+                      }
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: '8px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px' }}>
+                      {' '}
+                      Phone No<span style={{ color: 'red' }}>*</span>{' '}
+                    </label>
+                    <input
+                      className='editaddress-input'
+                      name='phoneNo'
+                      id='phoneNo'
+                      type='number'
+                      placeholder='Type phone no here'
+                      value={address.phoneNo}
+                      // onChange={(e) => setPhoneNo(e.target.value)}
+                      onChange={(e) =>
+                        setAddress({ ...address, phoneNo: e.target.value })
+                      }
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: '8px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px' }}>
+                      {' '}
+                      Country<span style={{ color: 'red' }}>*</span>{' '}
+                    </label>
                     <select
-                      className='appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full'
+                      name='country'
+                      id='country'
+                      placeholder='select'
+                      required
+                      type='select'
                       value={address.country}
                       // onChange={(e) => setCountry(e.target.value)}
                       onChange={(e) =>
@@ -121,14 +152,7 @@ const EditAddressForm = ({
                       ))}
                     </select>
                   </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'flex-end',
-                      marginBottom: '5px',
-                      border: '2px solid red',
-                    }}
-                  >
+                  <div className='updatepassword-btn-container'>
                     <Link
                       href={'/me/userprofilepage'}
                       style={{
@@ -142,7 +166,7 @@ const EditAddressForm = ({
                     </Link>
                     <button
                       type='submit'
-                      className='my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700'
+                      style={{ cursor: 'pointer' }}
                       disabled={submitting}
                     >
                       {submitting ? `${type}...` : type}

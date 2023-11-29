@@ -11,7 +11,7 @@ const TeamPage = () => {
   useEffect(() => {
     setIsLoading(true)
     const fetchServiceProviders = async () => {
-      const response = await fetch(`/api/userlist`)
+      const response = await fetch(`/api/userlist`, { cache: 'no-store' })
       const data = await response.json()
       setData(data)
       setIsLoading(false)
