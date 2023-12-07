@@ -46,6 +46,10 @@ const UserProfile = ({
       <section
         className='userprofile-container'
         style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
           backgroundColor: '#ffffff',
           paddingBottom: '2.5rem',
           paddingTop: '1rem',

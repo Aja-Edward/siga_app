@@ -2395,8 +2395,9 @@ li svg {
 
 .address-section-container {
   display: grid;
-  grid-gap: 0.3rem;
+  grid-gap: 0.8rem;
   place-items: center;
+  height: auto;
 }
 
 .address-user {
@@ -3481,6 +3482,9 @@ option {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .address-card {
+    margin-top: 10px;
   }
 
   hr {
