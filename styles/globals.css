@@ -2040,7 +2040,35 @@ li svg {
   background-color: rgb(var(--foreground-rgb));
   color: #ffffff;
 }
+/* BOOKING PAGE */
+.servicebookingform-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.servicebookingmain-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookingform-bk-btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: rgb(var(--foreground-rgb));
+  color: #ffffff;
+  margin-top: 1rem;
+}
+
+.btn-active-tab {
+  opacity: 50;
+}
+
+.servicebookingmain-container .btn-none-active-tab {
+  opacity: 100;
+}
 /* USER INFO */
 .section_figure {
   display: flex;
@@ -2551,6 +2579,17 @@ li svg {
   box-shadow: 1px 1px 5px 1px rgb(119, 119, 119);
   border-radius: 5px;
 }
+.email h1 {
+  background-color: rgb(var(--foreground-rgb));
+  box-sizing: border-box;
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding: 10px;
+  text-align: center;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border: none;
+}
 
 .email_header {
   background-color: rgb(var(--foreground-rgb));
@@ -2573,11 +2612,11 @@ li svg {
   width: 100%;
 }
 .isValidInput {
-  border: 2px solid none;
+  border: 1px solid green;
   color: green;
 }
 .isInvalidInput {
-  border: 2px solid red;
+  border: 1px solid red;
   color: red;
 }
 .email_body .form-group {
@@ -2593,6 +2632,12 @@ li svg {
   padding: 5px;
 }
 
+.keyboard-form .form-group {
+  display: flex;
+}
+.keyboard-form .form-group select {
+  flex: 1;
+}
 .email_body .form-group input,
 .form-group select,
 .email_body .form-group textarea {
