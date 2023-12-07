@@ -32,6 +32,81 @@ const SendMessageForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
 
+  const instrumentCategories = {
+    keyboards: ['Pianist', 'Organist', 'Keyboardist'],
+    vocals: [
+      'Lead Singer',
+      'Backup',
+      'Soprano',
+      'Alto',
+      'Tenor',
+      'Bass',
+      'Duet',
+      'Trio',
+      'Quartet',
+      'Quintet',
+      'Sextet',
+      'Choir',
+      'Acapella',
+    ],
+    woodwinds: [
+      'Flutist',
+      'Oboist',
+      'Piccolo Player',
+      'Clarinetist',
+      'Saxophonist',
+      'Bassoonist',
+    ],
+    strings: [
+      'Violinist',
+      'Violist',
+      'Cellist',
+      'Guitarist (Rhythm)',
+      'Guitarist (Bass)',
+      'Double Bassist',
+    ],
+    brasswinds: [
+      'Trumpeter',
+      'Trombonist',
+      'Tuba Player',
+      'Euphonium Player',
+      'French Horn Player',
+    ],
+    percussion: [
+      'Drummer',
+      'Timpanist',
+      'Talking Drummer',
+      'Konga Player',
+      'Omele Player',
+      'Bata Player',
+    ],
+  }
+
+  const generateQuantityOptions = () => {
+    const quantityOptions = []
+    for (let i = 1; i <= 9; i++) {
+      quantityOptions.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      )
+    }
+    return quantityOptions
+  }
+
+  const instrumentOptions = (category) => {
+    return (
+      <>
+        <option value=''>{`${category.toUpperCase()} OPTIONS`}</option>
+        {instrumentCategories[category].map((instrument) => (
+          <option key={instrument} value={instrument}>
+            {instrument}
+          </option>
+        ))}
+      </>
+    )
+  }
+
   const router = useRouter()
   console.log(formValues)
   console.log(isLoading)
@@ -227,10 +302,7 @@ const SendMessageForm = () => {
                   onChange={handleChange}
                   className='select-instrument'
                 >
-                  <option value=''>KEYBOARDS OPTIONS</option>
-                  <option value='pianist'>Pianist</option>
-                  <option value='guitarist'>Organist</option>
-                  <option value='bandmen'>Keyboardist</option>
+                  {instrumentOptions('keyboards')}
                 </select>
                 <select
                   id='keyboardsqty'
@@ -240,16 +312,7 @@ const SendMessageForm = () => {
                   onBlur={() => handleInputBlur('keyboardqty')}
                   className='select-number'
                 >
-                  <option value=''>qty</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
-                  <option value='4'>4</option>
-                  <option value='5'>5</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
+                  {generateQuantityOptions()}
                 </select>
               </div>
               <div className='form-group'>
@@ -261,22 +324,8 @@ const SendMessageForm = () => {
                   onBlur={() => handleInputBlur('vocals')}
                   className='select-instrument'
                 >
-                  <option value=''>VOCALS</option>
-                  <option value='lead singer'>Lead Singer</option>
-                  <option value='backups'>backups</option>
-                  <option value='soprano'>Soprano</option>
-                  <option value='alto'>Alto</option>
-                  <option value='tenor'>Tenor</option>
-                  <option value='bass'>Bass</option>
-                  <option value='duet'>Duet</option>
-                  <option value='trio'>Trio</option>
-                  <option value='quartet'>Quartet</option>
-                  <option value='quintet'>Quintet</option>
-                  <option value='sextet'>Sextet</option>
-                  <option value='choir'>Choir</option>
-                  <option value='acapella'>Acapella</option>
+                  {instrumentOptions('vocals')}
                 </select>
-
                 <select
                   id='vocalsqty'
                   name='vocalsqty'
@@ -285,19 +334,11 @@ const SendMessageForm = () => {
                   onBlur={() => handleInputBlur('vocalsqty')}
                   className='select-number'
                 >
-                  <option value=''>qty</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
-                  <option value='4'>4</option>
-                  <option value='5'>5</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
+                  {generateQuantityOptions()}
                 </select>
               </div>
             </div>
+
             <div className='double-form-group' style={{ display: 'flex' }}>
               <div className='form-group'>
                 <select
