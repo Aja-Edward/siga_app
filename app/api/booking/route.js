@@ -41,7 +41,7 @@ const CONTACT_MESSAGE_FIELD = {
   woodwindsixqty: 'Woodwind six qty',
   woodwindseven: 'Woodwind seven',
   woodwindsevenqty: 'woodwind qty',
-  string: 'String one',
+  stringone: 'String one',
   stringoneqty: 'String one qty',
   stringtwo: 'String two',
   stringtwoqty: 'String two qty',

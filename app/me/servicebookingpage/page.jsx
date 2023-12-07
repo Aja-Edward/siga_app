@@ -5,7 +5,7 @@ const ServiceBookingPage = () => {
   return (
     <div className='contactuswrapper'>
       <h2>
-        Contact Siga<span>247</span>
+        Book Siga<span>247</span>
       </h2>
       <p>
         Stay updated with our latest news, promotions, and industry insights by

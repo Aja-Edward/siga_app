@@ -9,20 +9,6 @@ const SendMessageForm = () => {
     email: '',
     name: '',
     subject: '',
-    genre: '',
-    keyboards: '',
-    keyboardsqty: '0',
-    vocals: '',
-    vocalsqty: '0',
-    woodwinds: '',
-    woodwindsqty: '0',
-    strings: '',
-    stringsqty: '0',
-    brasswinds: '',
-    brasswindsqty: '0',
-    percussion: '',
-    percussionqty: '0',
-    instrumentgroup: '',
     date: '',
     time: '',
     description: '',
@@ -32,101 +18,11 @@ const SendMessageForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
 
-  const instrumentCategories = {
-    keyboards: ['Pianist', 'Organist', 'Keyboardist'],
-    vocals: [
-      'Lead Singer',
-      'Backup',
-      'Soprano',
-      'Alto',
-      'Tenor',
-      'Bass',
-      'Duet',
-      'Trio',
-      'Quartet',
-      'Quintet',
-      'Sextet',
-      'Choir',
-      'Acapella',
-    ],
-    woodwinds: [
-      'Flutist',
-      'Oboist',
-      'Piccolo Player',
-      'Clarinetist',
-      'Saxophonist',
-      'Bassoonist',
-    ],
-    strings: [
-      'Violinist',
-      'Violist',
-      'Cellist',
-      'Guitarist (Rhythm)',
-      'Guitarist (Bass)',
-      'Double Bassist',
-    ],
-    brasswinds: [
-      'Trumpeter',
-      'Trombonist',
-      'Tuba Player',
-      'Euphonium Player',
-      'French Horn Player',
-    ],
-    percussion: [
-      'Drummer',
-      'Timpanist',
-      'Talking Drummer',
-      'Konga Player',
-      'Omele Player',
-      'Bata Player',
-    ],
-  }
-
-  const generateQuantityOptions = () => {
-    const quantityOptions = []
-    for (let i = 1; i <= 9; i++) {
-      quantityOptions.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      )
-    }
-    return quantityOptions
-  }
-
-  const instrumentOptions = (category) => {
-    return (
-      <>
-        <option value=''>{`${category.toUpperCase()} OPTIONS`}</option>
-        {instrumentCategories[category].map((instrument) => (
-          <option key={instrument} value={instrument}>
-            {instrument}
-          </option>
-        ))}
-      </>
-    )
-  }
-
   const router = useRouter()
   console.log(formValues)
   console.log(isLoading)
 
-  const {
-    email,
-    name,
-    subject,
-    genre,
-    keyboards,
-    vocals,
-    woodwinds,
-    strings,
-    brasswinds,
-    percussion,
-    instrumentgroup,
-    date,
-    time,
-    description,
-  } = formValues
+  const { email, name, subject, date, time, description } = formValues
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -170,40 +66,13 @@ const SendMessageForm = () => {
     }
     console.log(e.target)
   }
-  const artistFieldStyle = {
-    display: openSidebar ? 'none' : '',
-  }
+
 
   return (
     <div className='email' maxWidth='450px'>
       <form action='' className='email_form'>
         <div className='email_header'>New Message</div>
         <div className='email_body'>
-          <div
-            className=' form-group'
-            style={{ display: 'flex', flexDirection: 'column' }}
-          >
-            <input
-              type='email'
-              id='email'
-              placeholder='Email'
-              required
-              name='email'
-              value={formValues.email}
-              onChange={handleChange}
-              onBlur={() => handleInputBlur('email')}
-              className={
-                touched.email && !formValues.email
-                  ? 'isInvalidInput'
-                  : 'isValidInput'
-              }
-            />
-
-            {touched.email && !formValues.email ? (
-              <small style={{ color: 'red' }}>required</small>
-            ) : null}
-          </div>
-
           <div
             className='form-group'
             style={{
@@ -230,6 +99,31 @@ const SendMessageForm = () => {
               <small style={{ color: 'red' }}>required</small>
             ) : null}
           </div>
+          <div
+            className=' form-group'
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <input
+              type='email'
+              id='email'
+              placeholder='Email'
+              required
+              name='email'
+              value={formValues.email}
+              onChange={handleChange}
+              onBlur={() => handleInputBlur('email')}
+              className={
+                touched.email && !formValues.email
+                  ? 'isInvalidInput'
+                  : 'isValidInput'
+              }
+            />
+
+            {touched.email && !formValues.email ? (
+              <small style={{ color: 'red' }}>required</small>
+            ) : null}
+          </div>
+
           <div
             className='form-group'
             style={{ display: 'flex', flexDirection: 'column' }}
@@ -266,259 +160,6 @@ const SendMessageForm = () => {
               <small style={{ color: 'red' }}>required</small>
             ) : null}
           </div>
-          <div className='message-toggle-btn'>
-            <button onClick={() => setOpenSidebar(!openSidebar)}>
-              ARTIST/INSTRUMENT
-            </button>
-            <button onClick={() => setOpenSidebar(!openSidebar)}>
-              SEEK ADVISE
-            </button>
-          </div>
-          <div className='form-group' style={artistFieldStyle}>
-            <select
-              className='instrument-select'
-              id='genre'
-              name='genre'
-              value={formValues.genre}
-              onChange={handleChange}
-              onBlur={() => handleInputBlur('genre')}
-            >
-              <option value=''>GENRE</option>
-              <option value='contemporarygospel'>Contemporary Gospel</option>
-              <option value='choral/classica'>Choral/classica</option>
-              <option value='traditional/folk'>Traditional/folk</option>
-              <option value='jazz/blues'>Jazz/blues</option>
-              <option value='generalsecular'>General secular</option>
-              <option value='othersspecify)'>Others (specify)</option>
-            </select>
-          </div>
-          <div className='artist-instrument' style={artistFieldStyle}>
-            <div className='double-form-group' style={{ display: 'flex' }}>
-              <div className='form-group'>
-                <select
-                  id='keyboards'
-                  name='keyboards'
-                  value={formValues.keyboards}
-                  onChange={handleChange}
-                  className='select-instrument'
-                >
-                  {instrumentOptions('keyboards')}
-                </select>
-                <select
-                  id='keyboardsqty'
-                  name='keyboardsqty'
-                  value={formValues.keyboardsqty}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('keyboardqty')}
-                  className='select-number'
-                >
-                  {generateQuantityOptions()}
-                </select>
-              </div>
-              <div className='form-group'>
-                <select
-                  id='vocals'
-                  name='vocals'
-                  value={formValues.vocals}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('vocals')}
-                  className='select-instrument'
-                >
-                  {instrumentOptions('vocals')}
-                </select>
-                <select
-                  id='vocalsqty'
-                  name='vocalsqty'
-                  value={formValues.vocalsqty}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('vocalsqty')}
-                  className='select-number'
-                >
-                  {generateQuantityOptions()}
-                </select>
-              </div>
-            </div>
-
-            <div className='double-form-group' style={{ display: 'flex' }}>
-              <div className='form-group'>
-                <select
-                  id='woodwinds'
-                  name='woodwinds'
-                  value={formValues.woodwinds}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('woodwinds')}
-                  className='select-instrument'
-                >
-                  <option value=''>WOODWINDS</option>
-                  <option value='flutist'>Flutist</option>
-                  <option value='oboist'>Oboist</option>
-                  <option value='piccolo player'>Piccolo player</option>
-                  <option value='recordist'>Recordist</option>
-                  <option value='clarinetist'>Clarinetist</option>
-                  <option value='saxophonist'>Saxophonist </option>
-                  <option value='bassoonist'>Bassoonist </option>
-                </select>
-
-                <select
-                  id='woodwindsqty'
-                  name='woodwindsqty'
-                  value={formValues.woodwindsqty}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('woodwindsqty')}
-                  className='select-number'
-                >
-                  <option value=''>qty</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
-                  <option value='4'>4</option>
-                  <option value='5'>5</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
-                </select>
-              </div>
-              <div className='form-group'>
-                <select
-                  id='strings'
-                  name='strings'
-                  value={formValues.strings}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('strings')}
-                  className='select-instrument'
-                >
-                  <option value=''>STRINGS</option>
-                  <option value='violinist'>Violinist</option>
-                  <option value='violist'>Violist</option>
-                  <option value='cellist'>Cellist</option>
-                  <option value='guitarist'>Guitarist (Rhythm)</option>
-                  <option value='guitaristbass'>Guitarist (Bass)</option>
-                  <option value='bassist'>Double Bassist</option>
-                </select>
-
-                <select
-                  id='stringsqty'
-                  name='stringsqty'
-                  value={formValues.stringsqty}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('stringsqty')}
-                  className='select-number'
-                >
-                  <option value=''>qty</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
-                  <option value='4'>4</option>
-                  <option value='5'>5</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
-                </select>
-              </div>
-            </div>
-            <div className='double-form-group' style={{ display: 'flex' }}>
-              <div className='form-group'>
-                <select
-                  id='brasswinds'
-                  name='brasswinds'
-                  value={formValues.brasswinds}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('brasswinds')}
-                  className='select-instrument'
-                >
-                  <option value=''>BRASS WINDS</option>
-                  <option value='trumpeter'>Trumpeter</option>
-                  <option value='trombonist'>Trombonist</option>
-                  <option value='tuba'>Tuba player</option>
-                  <option value='euphonium'>Euphonium player</option>
-                  <option value='french horn'>French horn player</option>
-                </select>
-
-                <select
-                  id='brasswindsqty'
-                  name='brasswindsqty'
-                  value={formValues.brasswindsqty}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('brasswindsqty')}
-                  className='select-number'
-                >
-                  <option value=''>qty</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
-                  <option value='4'>4</option>
-                  <option value='5'>5</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
-                </select>
-              </div>
-
-              <div className='form-group'>
-                <select
-                  id='percussion'
-                  name='percussion'
-                  value={formValues.percussion}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('percussion')}
-                  className='select-instrument'
-                >
-                  <option value=''>PERCUSSION</option>
-                  <option value='drummer'>Drummer</option>
-                  <option value='timpanist'>Timpanist</option>
-                  <option value='talkingdrum'>Talking Drummer</option>
-                  <option value='konga'>Konga Player</option>
-                  <option value='omele'>Omele Player</option>
-                  <option value='bata'>Bata Player</option>
-                </select>
-
-                <select
-                  id='percussionqty'
-                  name='percussionqty'
-                  value={formValues.percussionqty}
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('percussionqty')}
-                  className='select-number'
-                >
-                  <option value=''>qty</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
-                  <option value='4'>4</option>
-                  <option value='5'>5</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div className='form-group' style={artistFieldStyle}>
-            <select
-              className='instrument-select'
-              id='instrumentgroup'
-              name='instrumentgroup'
-              value={formValues.instrumentgroup}
-              onChange={handleChange}
-              onBlur={() => handleInputBlur('instrumentgroup')}
-            >
-              <option value=''>INSTRUMENTAL GROUPS</option>
-              <option value='duet'>Duet</option>
-              <option value='trio'>Trio</option>
-              <option value='quartet'>Quartet</option>
-              <option value='quintet'>Quintet</option>
-              <option value='sextet'>Sextet</option>
-              <option value='orchestra'>Orchestra</option>
-              <option value='stageband'>Stage Band</option>
-              <option value='dj'>DJ</option>
-              <option value='onemanband'>One-man Band</option>
-            </select>
-          </div>
-
           <div className='select-instrument'>
             <div
               className='form-group'

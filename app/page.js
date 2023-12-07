@@ -109,7 +109,7 @@ const Homepage = () => {
               </Link>
             )}
 
-            <Link href={'/me/message'}>
+            <Link href={'/me/servicebookingpage'}>
               <button
                 className='homepage_action_searchbtn'
                 style={{ cursor: 'pointer' }}

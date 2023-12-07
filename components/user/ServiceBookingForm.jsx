@@ -49,7 +49,7 @@ const ServiceBookingForm = () => {
     woodwindsixqty: '',
     woodwindseven: '',
     woodwindsevenqty: '',
-    string: '',
+    stringone: '',
     stringoneqty: '',
     stringtwo: '',
     stringtwoqty: '',
