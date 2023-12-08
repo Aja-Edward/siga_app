@@ -93,6 +93,8 @@ const ServiceBookingForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
 
+  const [errorMessage, setErrorMessage] = useState('')
+
   const handleChange = (fieldName, value) => {
     console.log(`Updating state for ${fieldName} to ${value}`)
     setData((prevValues) => ({
@@ -118,10 +120,13 @@ const ServiceBookingForm = () => {
       })
       if (response.ok) {
         router.push('/')
+      } else {
+        const errorData = await response.json()
+        setErrorMessage(errorData.error || response.statusText)
       }
     } catch (error) {
-      alert('Cannot send your message as', error)
-      console.log(error)
+      setErrorMessage(error.message)
+      console.error(error.message)
     } finally {
       setIsLoading(false)
     }
@@ -180,6 +185,14 @@ const ServiceBookingForm = () => {
 
   return (
     <div className='servicebookingmain-container'>
+      {errorMessage && (
+        <div
+          style={{ color: 'red', textAlign: 'center', marginBottom: '10px' }}
+        >
+          {errorMessage}
+        </div>
+      )}
+
       <div>{formElements[activeTab]}</div>
       <div className='servicebookingform-container'>
         <button
@@ -210,7 +223,6 @@ const ServiceBookingForm = () => {
           <button
             className='bookingform-bk-btn '
             type='submit'
-            disabled={!data.name || !data.email || !data.subject}
             onClick={onSubmit}
           >
             {isLoading ? (

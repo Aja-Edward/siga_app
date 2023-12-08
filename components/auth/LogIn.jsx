@@ -77,6 +77,12 @@ const Login = () => {
           Sign In
         </button>{' '}
         <br />
+        <span style={{ color: '#14182A', fontWeight: '500' }}>
+          <Link href='/auth/forgot_password' className='myformlink'>
+            Forgot Password?
+          </Link>
+        </span>{' '}
+        <br />
         <span>
           <span>Don't Have An Account? </span>
           <Link href='/register' className='myformlink'>
