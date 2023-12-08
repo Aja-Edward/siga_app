@@ -214,7 +214,12 @@ export const POST = async (req) => {
   if (req.method === 'POST') {
     const body = await req.json()
     if (!body.name || !body.email || !body.subject) {
-      return new Response('Bad Request', { status: 400 })
+      return new Response(
+        JSON.stringify({
+          error: 'Name, Email and Service Fields, cannot be empty!',
+        }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      )
     }
     try {
       await transporter.sendMail({

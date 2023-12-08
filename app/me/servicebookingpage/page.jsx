@@ -8,9 +8,9 @@ const ServiceBookingPage = () => {
         Book Siga<span>247</span>
       </h2>
       <p>
-        Stay updated with our latest news, promotions, and industry insights by
-        connecting with us on our social media platforms. Join our growing
-        community and be a part of the Siga247 family.
+        Discover the ease of adventure with Siga247. Book your next musical
+        experience effortlessly and embrace a world of convenience and
+        excitement, available 24/7...
       </p>
       <div className='contactustitle'>
         <div className='sendformdiv'>
