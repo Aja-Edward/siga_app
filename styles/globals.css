@@ -398,7 +398,6 @@ Custom Input range
 
 input[type='range'] {
   --range-progress: 0;
-
   -webkit-appearance: none;
   position: relative;
   background: #ccc;
@@ -521,7 +520,6 @@ input[type='range']::before {
   display: block;
   margin: 0 auto;
   top: 60px;
-
   background: #98a2a467;
 }
 
@@ -2057,9 +2055,11 @@ li svg {
 .bookingform-bk-btn {
   padding: 10px 20px;
   border-radius: 10px;
+  border: none;
   background-color: rgb(var(--foreground-rgb));
   color: #ffffff;
   margin-top: 1rem;
+  cursor: 'pointer';
 }
 
 .btn-active-tab {

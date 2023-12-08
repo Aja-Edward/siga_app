@@ -234,7 +234,7 @@ const UpdateProfile = ({ type }) => {
             }}
             disabled={loading ? true : false}
           >
-            {loading ? 'Updading...' : 'Update'}
+            {loading ? 'Updating...' : 'Update'}
           </button>
         </form>
       </div>
