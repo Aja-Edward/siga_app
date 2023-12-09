@@ -16,29 +16,6 @@ const UserNameEmailService = (props) => {
       <form action='' className='email_form'>
         <div className='email_body'>
           <div
-            className=' form-group'
-            style={{ display: 'flex', flexDirection: 'column' }}
-          >
-            <input
-              type='email'
-              id='email'
-              placeholder='Email...'
-              required
-              name='email'
-              value={data.email}
-              onChange={(e) => handleChange('email', e.target.value)}
-              onBlur={() => handleInputBlur('email')}
-              className={
-                touched.email && !data.email ? 'isInvalidInput' : 'isValidInput'
-              }
-            />
-
-            {touched.email && !data.email ? (
-              <small style={{ color: 'red' }}>required</small>
-            ) : null}
-          </div>
-
-          <div
             className='form-group'
             style={{
               display: 'flex',
@@ -62,6 +39,29 @@ const UserNameEmailService = (props) => {
               <small style={{ color: 'red' }}>required</small>
             ) : null}
           </div>
+          <div
+            className=' form-group'
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <input
+              type='email'
+              id='email'
+              placeholder='Email...'
+              required
+              name='email'
+              value={data.email}
+              onChange={(e) => handleChange('email', e.target.value)}
+              onBlur={() => handleInputBlur('email')}
+              className={
+                touched.email && !data.email ? 'isInvalidInput' : 'isValidInput'
+              }
+            />
+
+            {touched.email && !data.email ? (
+              <small style={{ color: 'red' }}>required</small>
+            ) : null}
+          </div>
+
           <div
             className='form-group'
             style={{ display: 'flex', flexDirection: 'column' }}
