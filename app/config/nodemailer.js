@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer'
 
 const email = process.env.GMAIL_ADDRESS
 const pass = process.env.GMAIL_PASSWORD
+const emailto = process.env.GMAIL_ADDRESS_TO
 
 export const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -13,5 +14,5 @@ export const transporter = nodemailer.createTransport({
 
 export const mailOptions = {
   from: email,
-  to: email,
+  to: emailto,
 }

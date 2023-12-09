@@ -200,9 +200,9 @@ const ServiceBookingForm = () => {
           onClick={() => setActiveTab((prev) => prev - 1)}
           className='bookingform-bk-btn'
           style={{
-            // opacity: activeTab === formElements.length - 1 ? 0.5 : 1,
-            // backgroundColor:
-            //   activeTab === formElements.length - 1 ? '#4a5568' : null,
+            opacity: activeTab === formElements.length - 1 ? 0.5 : 1,
+            backgroundColor:
+              activeTab === formElements.length - 1 ? '#4a5568' : null,
             cursor: 'pointer',
           }}
         >
