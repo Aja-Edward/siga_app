@@ -6,9 +6,11 @@ const UserNameEmailService = (props) => {
   console.log(data)
 
   const [touched, setTouched] = useState({})
+  const [othersInput, setOthersInput] = useState('')
 
-  const handleInputBlur = (fieldName) =>
+  const handleInputBlur = (fieldName) => {
     setTouched((prev) => ({ ...prev, [fieldName]: true }))
+  }
 
   return (
     <div className='email' maxWidth='450px'>
@@ -71,7 +73,9 @@ const UserNameEmailService = (props) => {
               id='subject'
               name='subject'
               value={data.subject}
-              onChange={(e) => handleChange('subject', e.target.value)}
+              onChange={(e) => {
+                handleChange('subject', e.target.value)
+              }}
               onBlur={() => handleInputBlur('subject')}
             >
               <option value=''>SELECT SERVICE</option>
@@ -91,8 +95,32 @@ const UserNameEmailService = (props) => {
               <option value='music lesson'>Music Lesson</option>
               <option value='buy an instrument'>Buy an instrument</option>
               <option value='repair/servicing'>Repair/servicing</option>
-              <option value='other'>Other Specify</option>
+              <option value='others'>Others (Specify)</option>
             </select>{' '}
+            {data.subject === 'others' && (
+              <input
+                type='text'
+                id='othersspecify'
+                placeholder='Specify service here'
+                name='othersspecify'
+                value={data.othersspecify}
+                onChange={(e) => handleChange('othersspecify', e.target.value)}
+              />
+            )}
+            {data.subject === 'music lesson' && (
+              <select
+                id='lessonlocation'
+                name='lessonlocation'
+                value={data.lessonlocation}
+                onChange={(e) => handleChange('lessonlocation', e.target.value)}
+              >
+                <option value='' disabled>
+                  SELECT Location
+                </option>
+                <option value='online'>Online</option>
+                <option value='offline'>Offline</option>
+              </select>
+            )}
             <br />
             {touched.subject && !data.subject ? (
               <small style={{ color: 'red' }}>required</small>

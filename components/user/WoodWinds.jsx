@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 const WoodWinds = (props) => {
   const [data, setData] = useState(props.data || {})
-  const { handleInputBlur, handleChange:parentHandleChange } = props
+  const { handleInputBlur, handleChange: parentHandleChange } = props
   console.log(data)
   const woodwindOptions = {
     woodwindone: [
@@ -11,7 +11,7 @@ const WoodWinds = (props) => {
       'Oboist',
       'Piccolo player',
       'Recordist',
-      'Clarintist',
+      'Clarinetist',
       'Saxophonist',
       'Bassonist',
     ],
@@ -20,7 +20,7 @@ const WoodWinds = (props) => {
       'Oboist',
       'Piccolo player',
       'Recordist',
-      'Clarintist',
+      'Clarinetist',
       'Saxophonist',
       'Bassonist',
     ],
@@ -29,7 +29,7 @@ const WoodWinds = (props) => {
       'Oboist',
       'Piccolo player',
       'Recordist',
-      'Clarintist',
+      'Clarinetist',
       'Saxophonist',
       'Bassonist',
     ],
@@ -38,7 +38,7 @@ const WoodWinds = (props) => {
       'Oboist',
       'Piccolo player',
       'Recordist',
-      'Clarintist',
+      'Clarinetist',
       'Saxophonist',
       'Bassonist',
     ],
@@ -47,7 +47,7 @@ const WoodWinds = (props) => {
       'Oboist',
       'Piccolo player',
       'Recordist',
-      'Clarintist',
+      'Clarinetist',
       'Saxophonist',
       'Bassonist',
     ],
@@ -56,7 +56,7 @@ const WoodWinds = (props) => {
       'Oboist',
       'Piccolo player',
       'Recordist',
-      'Clarintist',
+      'Clarinetist',
       'Saxophonist',
       'Bassonist',
     ],
@@ -65,7 +65,7 @@ const WoodWinds = (props) => {
       'Oboist',
       'Piccolo player',
       'Recordist',
-      'Clarintist',
+      'Clarinetist',
       'Saxophonist',
       'Bassonist',
     ],
@@ -112,7 +112,7 @@ const WoodWinds = (props) => {
 
       return updatedOptions
     })
-parentHandleChange(name, value)
+    parentHandleChange(name, value)
 
     setData((prevData) => ({
       ...prevData,
@@ -200,7 +200,7 @@ parentHandleChange(name, value)
             className='select-number'
           >
             <option value='' disabled hidden>
-               qty
+              qty
             </option>
             {generateQuantityOptions()}
           </select>
@@ -215,7 +215,7 @@ parentHandleChange(name, value)
             className='select-instrument'
           >
             <option value='' disabled hidden>
-             Woodwind 3 (optional)
+              Woodwind 3 (optional)
             </option>
             {availableOptions.woodwindthree
               .filter((option) => !selectedOptions.woodwindtwo.includes(option))
@@ -306,7 +306,7 @@ parentHandleChange(name, value)
             className='select-number'
           >
             <option value='' disabled hidden>
-             qty
+              qty
             </option>
             {generateQuantityOptions()}
           </select>
@@ -321,7 +321,7 @@ parentHandleChange(name, value)
             className='select-instrument'
           >
             <option value='' disabled hidden>
-             Woodwind 6 (optional)
+              Woodwind 6 (optional)
             </option>
             {availableOptions.woodwindsix
               .filter(
@@ -376,7 +376,7 @@ parentHandleChange(name, value)
             className='select-number'
           >
             <option value='' disabled hidden>
-             qty
+              qty
             </option>
             {generateQuantityOptions()}
           </select>
