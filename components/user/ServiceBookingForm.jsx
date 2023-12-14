@@ -16,6 +16,8 @@ const ServiceBookingForm = () => {
     email: '',
     name: '',
     subject: '',
+    lessonlocation: '',
+    othersspecify: '',
     genre: '',
     keyboardone: '',
     keyboardoneqty: '',
