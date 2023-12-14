@@ -103,8 +103,9 @@ const UserNameEmailService = (props) => {
                 id='othersspecify'
                 placeholder='Specify service here'
                 name='othersspecify'
-                value={data.othersspecify}
+                value={data.otherservicespecify}
                 onChange={(e) => handleChange('othersspecify', e.target.value)}
+                style={{ marginTop: '10px' }}
               />
             )}
             {data.subject === 'music lesson' && (
@@ -113,6 +114,7 @@ const UserNameEmailService = (props) => {
                 name='lessonlocation'
                 value={data.lessonlocation}
                 onChange={(e) => handleChange('lessonlocation', e.target.value)}
+                style={{ marginTop: '10px' }}
               >
                 <option value='' disabled>
                   SELECT Location
@@ -141,8 +143,24 @@ const UserNameEmailService = (props) => {
               <option value='traditional/folk'>Traditional/folk</option>
               <option value='jazz/blues'>Jazz/blues</option>
               <option value='generalsecular'>General secular</option>
-              <option value='othersspecify)'>Others (specify)</option>
-            </select>
+              <option value='others'>Others (specify)</option>
+            </select>{' '}
+            <br />
+          </div>
+          <div className='form-group'>
+            {data.genre === 'others' && (
+              <input
+                type='text'
+                id='othergenrespecify'
+                placeholder='Specify genre here'
+                name='othergenrespecify'
+                value={data.othergenrespecify}
+                onChange={(e) =>
+                  handleChange('othergenrespecify', e.target.value)
+                }
+                style={{ marginTop: '10px' }}
+              />
+            )}
           </div>
         </div>
       </form>
